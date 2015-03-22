@@ -1,4 +1,4 @@
-module ArchetypeRails
+module Archetype
   module ApplicationHelper
   end
 end

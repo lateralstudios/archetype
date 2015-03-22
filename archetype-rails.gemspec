@@ -1,17 +1,17 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "archetype_rails/version"
+require "archetype/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "archetype_rails"
-  s.version     = ArchetypeRails::VERSION
+  s.name        = "archetype-rails"
+  s.version     = Archetype::VERSION
   s.authors     = ["Tom Beynon"]
   s.email       = ["tombeynon@gmail.com"]
   s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of ArchetypeRails."
-  s.description = "TODO: Description of ArchetypeRails."
+  s.summary     = "TODO: Summary of Archetype."
+  s.description = "TODO: Description of Archetype."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    archetype_rails (0.0.1)
+    archetype-rails (0.0.1)
       rails (~> 4.2.1)
 
 GEM
@@ -126,6 +126,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  archetype_rails!
+  archetype-rails!
   rspec-rails
   sqlite3

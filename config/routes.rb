@@ -1,2 +1,2 @@
-ArchetypeRails::Engine.routes.draw do
+Archetype::Engine.routes.draw do
 end
