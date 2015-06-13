@@ -5,7 +5,7 @@ require "archetype/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "archetype-rails"
+  s.name        = "archetype"
   s.version     = Archetype::VERSION
   s.authors     = ["Tom Beynon"]
   s.email       = ["tombeynon@gmail.com"]
@@ -18,6 +18,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.1"
 
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "rspec-rails"
+  s.add_dependency "sqlite3"
+  s.add_dependency "rspec-rails"
+  s.add_dependency "jquery-rails"
+  s.add_dependency "bootstrap-sass"
+  s.add_dependency "sass-rails"
 end
