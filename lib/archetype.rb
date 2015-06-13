@@ -1,5 +1,6 @@
 require "jquery-rails"
 require "bootstrap-sass"
+require "archetype/dashboard"
 require "archetype/router"
 require "archetype/engine"
 
