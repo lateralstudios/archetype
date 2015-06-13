@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-
-  mount Archetype::Engine => "/archetype"
+  Archetype.mount(self, path: '/admin') do
+    root to: 'dashboard#show'
+  end
 end
