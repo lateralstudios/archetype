@@ -1,5 +1,5 @@
 module Archetype
   class BaseController < ActionController::Base
-    layout 'archetype/application'
+    include Archetype::Base
   end
 end
