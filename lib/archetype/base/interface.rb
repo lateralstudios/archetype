@@ -5,18 +5,22 @@ module Archetype
 
       included do
         layout 'archetype/application'
-        helper_method :main_navigation
+        helper_method :interface, :page
       end
 
-      def main_navigation
-        Archetype.interface.navigation
+      def page
+        @page ||= interface.page_for(self)
+      end
+
+      def interface
+        Archetype.interface
       end
 
       module ClassMethods
         def navigable(name, *args)
           opts = args.extract_options!
           path = args.first
-          Archetype.interface.navigable(name, path, opts)
+          Archetype.interface.navigation.add_parent(name, path, opts)
         end 
       end
 
