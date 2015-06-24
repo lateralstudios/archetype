@@ -1,7 +1,6 @@
 require 'responders'
 require 'archetype/resourceful/resource'
 require 'archetype/resourceful/actions'
-require 'archetype/resourceful/interface'
 
 module Archetype
   module Resourceful
@@ -11,7 +10,6 @@ module Archetype
 
     included do
       prepend_view_path 'app/views/archetype/resource'
-      # Archetype::Interface.send(:include, Archetype::Resourceful::Interface)
     end
 
     module ClassMethods

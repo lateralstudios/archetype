@@ -1,19 +1,25 @@
-require 'archetype/interface/navigation'
 require 'archetype/interface/navigable'
-require 'archetype/interface/page'
+require 'archetype/interface/navigation'
+require 'archetype/interface/dsl'
+require 'archetype/interface/instance'
 
 module Archetype
-  class Interface
-    def page_for(controller)
-      Page.new(controller)
+  module Interface
+    extend ActiveSupport::Concern
+
+    included do
+      extend DSL
+
+      layout 'archetype/application'
+      helper_method :interface, :page
     end
 
-    def navigation
-      @navigation ||= Navigation.new
+    def interface
+      Instance.new(self)
     end
 
-    # def breadcrumbs
-    #   @breadcrumbs ||= Breadcrumbs.new
-    # end
+    module ClassMethods
+    end
+
   end
 end

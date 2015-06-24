@@ -2,16 +2,13 @@ require "jquery-rails"
 require "bootstrap-sass"
 require "archetype/engine"
 require "archetype/application"
-require "archetype/base"
-require "archetype/dashboard"
-require "archetype/resourceful"
 require "archetype/router"
 
 module Archetype
   class << self
     attr_accessor :application
 
-    delegate :interface, to: :application
+    delegate :controllers, :register, to: :application
 
     def application
       @application ||= Archetype::Application.new

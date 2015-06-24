@@ -1,5 +1,5 @@
 module Archetype
-  class Interface
+  module Interface
     class Navigable
       attr_accessor :name, :path, :options
       

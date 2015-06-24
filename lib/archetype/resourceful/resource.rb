@@ -37,7 +37,7 @@ module Archetype
       end
 
       def resource_class
-        @resource_class ||= controller_name.classify.safe_constantize
+        @resource_class ||= archetype_name.classify.safe_constantize
       end
 
       private
@@ -75,11 +75,11 @@ module Archetype
       end
 
       def resource_collection_name
-        controller_name.to_sym
+        archetype_name.to_sym
       end
 
       def resource_instance_name
-        controller_name.singularize.to_sym
+        archetype_name.singularize.to_sym
       end
 
       def resource_params

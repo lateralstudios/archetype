@@ -1,9 +1,14 @@
-require 'archetype/interface'
+require "archetype/controller"
 
 module Archetype
   class Application
-    def interface
-      @interface ||= Interface.new
+    def register(controller)
+      name = controller.archetype_name.to_sym
+      controllers[name] = Controller.new(controller)
+    end
+
+    def controllers
+      @controllers ||= {}
     end
   end
 end
