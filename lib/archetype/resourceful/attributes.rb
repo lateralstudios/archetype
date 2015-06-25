@@ -15,7 +15,10 @@ module Archetype
           @attributes ||= AttributeSet.from_model(resource_class)
         end
 
-        # def attribute(*args)
+        def attribute(*args)
+          opts = args.extract_options!
+          attributes.find(args).update(opts)
+        end
       end
     end
   end

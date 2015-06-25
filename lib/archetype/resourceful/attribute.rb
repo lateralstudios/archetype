@@ -18,6 +18,22 @@ module Archetype
         object.send(name)
       end
 
+      def update(params)
+        params.each{|k,v| send("#{k}=", v) if respond_to?("#{k}=") }
+      end
+
+      def only(contexts=[])
+        @contexts = contexts
+      end
+
+      def except(contexts=[])
+        @contexts = (@contexts - contexts)
+      end
+
+      def on(contexts=[])
+        @contexts = (@contexts + contexts).uniq
+      end
+
       private
 
       def default_contexts
