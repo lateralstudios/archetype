@@ -1,5 +1,7 @@
 <tr>
   <td><%= check_box_tag :selection %></td>
-  <td><%= table_item %></td>
+  <% interface.attributes(:index).first(5).each do |attribute| %>
+    <td><%= attribute.from(table_item) %></td>
+  <% end %>
   <td><%= render 'table_item_controls' %></td>
 </tr>

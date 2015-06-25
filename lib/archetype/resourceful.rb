@@ -1,11 +1,13 @@
 require 'responders'
 require 'archetype/resourceful/resource'
+require 'archetype/resourceful/attributes'
 require 'archetype/resourceful/actions'
 
 module Archetype
   module Resourceful
     extend ActiveSupport::Concern
     include Resource
+    include Attributes
     include Actions
 
     included do

@@ -15,6 +15,15 @@ module Archetype
         @navigation ||= prepare_navigation
       end
 
+      def attributes(context=nil)
+        if context.present?
+          @attributes ||= {}
+          @attributes[context] ||= controller.attributes.for(context)
+        else
+          controller.attributes
+        end
+      end
+
       # def breadcrumbs
       #   @breadcrumbs ||= Breadcrumbs.new
       # end

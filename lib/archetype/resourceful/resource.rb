@@ -7,6 +7,12 @@ module Archetype
         helper_method :collection, :resource
       end
 
+      module ClassMethods
+        def resource_class
+          controller_name.classify.safe_constantize
+        end
+      end
+
       protected
 
       def collection
@@ -37,7 +43,7 @@ module Archetype
       end
 
       def resource_class
-        @resource_class ||= archetype_name.classify.safe_constantize
+        @resource_class ||= self.class.resource_class
       end
 
       private

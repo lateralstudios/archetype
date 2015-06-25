@@ -1,5 +1,7 @@
 <tr>
   <th style="width: 10px"></th>
-  <th>Name</th>
+  <% interface.attributes(:index).first(5).each do |attribute| %>
+    <th><%= attribute.label %></th>
+  <% end %>
   <th style="width: 170px">Actions</th>
 </tr>
