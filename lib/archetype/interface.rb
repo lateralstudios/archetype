@@ -1,7 +1,7 @@
 require 'archetype/interface/navigable'
 require 'archetype/interface/navigation'
 require 'archetype/interface/dsl'
-require 'archetype/interface/instance'
+require 'archetype/interface/presenter'
 
 module Archetype
   module Interface
@@ -15,7 +15,7 @@ module Archetype
     end
 
     def interface
-      Instance.new(self)
+      Presenter.new(self)
     end
 
     module ClassMethods

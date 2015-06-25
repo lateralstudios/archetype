@@ -1,6 +1,6 @@
 module Archetype
   module Interface
-    class Instance
+    class Presenter
       attr_accessor :controller
 
       def initialize(controller)
