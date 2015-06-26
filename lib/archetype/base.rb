@@ -14,6 +14,10 @@ module Archetype
       def archetype_name
         controller_name
       end
+
+      def archetype_controller
+        Archetype.controllers[archetype_name.to_sym]
+      end
     end
   end
 end
