@@ -3,6 +3,9 @@ require "bootstrap-sass"
 require "archetype/engine"
 require "archetype/application"
 require "archetype/router"
+require "archetype/base"
+require "archetype/dashboard"
+require "archetype/resourceful"
 
 module Archetype
   class << self

@@ -6,6 +6,7 @@ module Archetype
     include Archetype::Interface
 
     included do
+      Archetype.register(self)
       delegate :archetype_name, to: :class
     end
     
