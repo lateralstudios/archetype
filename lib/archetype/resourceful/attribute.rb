@@ -23,15 +23,15 @@ module Archetype
       end
 
       def only=(*contexts)
-        @contexts = contexts
+        @contexts = contexts.flatten
       end
 
       def except=(*contexts)
-        @contexts = (@contexts - contexts)
+        @contexts = (@contexts - contexts.flatten)
       end
 
       def on=(*contexts)
-        @contexts = (@contexts + contexts).uniq
+        @contexts = (@contexts + contexts.flatten).uniq
       end
 
       private
