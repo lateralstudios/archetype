@@ -4,6 +4,7 @@ module Archetype
       extend ActiveSupport::Concern
 
       included do
+
         respond_to :html
         alias :index! :index
         alias :show! :show
@@ -13,6 +14,16 @@ module Archetype
         alias :update! :update
         alias :destroy! :destroy
         protected :index!, :show!, :new!, :create!, :edit!, :update!, :destroy!
+      end
+
+      module ClassMethods
+        def _actions
+          @_actions ||= default_actions
+        end
+
+        def default_actions
+          Archetype::Resourceful::RESOURCEFUL_ACTIONS
+        end
       end
 
       # GET /resources

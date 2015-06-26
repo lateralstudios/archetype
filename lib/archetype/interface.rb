@@ -9,7 +9,6 @@ module Archetype
 
     included do
       extend DSL
-
       layout 'archetype/application'
       helper_method :interface, :page
     end
