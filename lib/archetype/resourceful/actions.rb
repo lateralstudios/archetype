@@ -4,16 +4,7 @@ module Archetype
       extend ActiveSupport::Concern
 
       included do
-
         respond_to :html
-        alias :index! :index
-        alias :show! :show
-        alias :new! :new
-        alias :edit! :edit
-        alias :create! :create
-        alias :update! :update
-        alias :destroy! :destroy
-        protected :index!, :show!, :new!, :create!, :edit!, :update!, :destroy!
       end
 
       module ClassMethods
@@ -25,6 +16,7 @@ module Archetype
           Archetype::Resourceful::RESOURCEFUL_ACTIONS
         end
       end
+
 
       # GET /resources
       def index(options={}, &block)
@@ -69,6 +61,16 @@ module Archetype
         destroy_resource(object)
         respond_with(resource, options, &block)
       end
+
+      alias :index! :index
+      alias :show! :show
+      alias :new! :new
+      alias :edit! :edit
+      alias :create! :create
+      alias :update! :update
+      alias :destroy! :destroy
+      protected :index!, :show!, :new!, :create!, :edit!, :update!, :destroy!
+
     end
   end
 end

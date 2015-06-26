@@ -7,15 +7,17 @@ require 'archetype/resourceful/presenter'
 
 module Archetype
   module Resourceful
+    extend ActiveSupport::Concern
+
     RESOURCEFUL_ACTIONS = [:index, :show, :new, :create, :edit, :update, :destroy]
 
-    extend ActiveSupport::Concern
+    include Actions
     include Resource
     include Attributes
-    include Actions
 
     included do
       extend DSL
+
       prepend_view_path 'app/views/archetype/resource'
       helper_method :resourceful
     end
