@@ -22,15 +22,15 @@ module Archetype
         params.each{|k,v| send("#{k}=", v) if respond_to?("#{k}=") }
       end
 
-      def only(contexts=[])
+      def only=(*contexts)
         @contexts = contexts
       end
 
-      def except(contexts=[])
+      def except=(*contexts)
         @contexts = (@contexts - contexts)
       end
 
-      def on(contexts=[])
+      def on=(*contexts)
         @contexts = (@contexts + contexts).uniq
       end
 

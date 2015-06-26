@@ -6,10 +6,7 @@ module Archetype
     include Archetype::Interface
 
     included do
-    end
-
-    def archetype_name
-      self.class.archetype_name
+      delegate :archetype_name, to: :class
     end
     
     module ClassMethods

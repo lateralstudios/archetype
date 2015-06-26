@@ -7,17 +7,17 @@ module Archetype
       extend ActiveSupport::Concern
 
       included do
-        delegate :attributes, to: :class
       end
 
       module ClassMethods
-        def attributes
-          @attributes ||= AttributeSet.from_model(resource_class)
-        end
-
-        def attribute(*args)
+        def attributes(*args)
           opts = args.extract_options!
-          attributes.find(args).update(opts)
+          _attributes.find(args).update(opts)
+        end
+        alias_method :attribute, :attributes
+
+        def _attributes
+          @_attributes ||= AttributeSet.from_model(resource_class)
         end
       end
     end

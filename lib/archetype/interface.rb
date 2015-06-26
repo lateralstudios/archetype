@@ -15,11 +15,10 @@ module Archetype
     end
 
     def interface
-      Presenter.new(self)
+      @interface ||= Presenter.new(self) 
     end
 
     module ClassMethods
     end
-
   end
 end

@@ -2,6 +2,7 @@ require 'responders'
 require 'archetype/resourceful/resource'
 require 'archetype/resourceful/attributes'
 require 'archetype/resourceful/actions'
+require 'archetype/resourceful/presenter'
 
 module Archetype
   module Resourceful
@@ -12,6 +13,11 @@ module Archetype
 
     included do
       prepend_view_path 'app/views/archetype/resource'
+      helper_method :resourceful
+    end
+
+    def resourceful
+      @resourceful ||= Presenter.new(self)
     end
 
     module ClassMethods

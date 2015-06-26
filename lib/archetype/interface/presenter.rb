@@ -1,7 +1,7 @@
 module Archetype
   module Interface
     class Presenter
-      attr_accessor :controller
+      attr_reader :controller
 
       def initialize(controller)
         @controller = controller
@@ -13,15 +13,6 @@ module Archetype
 
       def navigation
         @navigation ||= prepare_navigation
-      end
-
-      def attributes(context=nil)
-        if context.present?
-          @attributes ||= {}
-          @attributes[context] ||= controller.attributes.for(context)
-        else
-          controller.attributes
-        end
       end
 
       # def breadcrumbs
