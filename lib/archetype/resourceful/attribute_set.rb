@@ -24,8 +24,10 @@ module Archetype
       private
 
       def with_names(names)
+        return attributes if names.include?(:all)
         find_all{|a| names.include?(a.name) }
       end
+
       def with_context(context)
         find_all{|a| a.contexts.include?(context) }
       end

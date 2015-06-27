@@ -10,12 +10,6 @@ module Archetype
       end
 
       module ClassMethods
-        def attributes(*args)
-          opts = args.extract_options!
-          _attributes.find(args).update(opts)
-        end
-        alias_method :attribute, :attributes
-
         def _attributes
           @_attributes ||= AttributeSet.from_model(resource_class)
         end

@@ -13,6 +13,12 @@ module Archetype
         end
       end
 
+      def attributes(*args)
+        opts = args.extract_options!
+        _attributes.find(args).update(opts)
+      end
+      alias_method :attribute, :attributes
+
       def per_page(per)
         @_per_page = per
         has_scope :per, default: _per_page
