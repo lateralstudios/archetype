@@ -1,7 +1,9 @@
-require 'archetype/interface/navigable'
-require 'archetype/interface/navigation'
 require 'archetype/interface/dsl'
 require 'archetype/interface/presenter'
+require 'archetype/interface/navigable'
+require 'archetype/interface/navigation'
+require 'archetype/interface/breadcrumb'
+require 'archetype/interface/crumb'
 
 module Archetype
   module Interface
@@ -10,7 +12,8 @@ module Archetype
     included do
       extend DSL
       layout 'archetype/application'
-      helper_method :interface, :page
+      helper_method :interface
+      crumb archetype_name
     end
 
     def interface

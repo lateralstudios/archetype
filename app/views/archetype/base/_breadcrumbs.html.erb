@@ -1,0 +1,9 @@
+<% crumbs = breadcrumb.crumbs %>
+<ol class="breadcrumb">
+  <% breadcrumb.crumbs.each_with_index do |crumb, index| %>
+    <% icon = '<i class="fa fa-dashboard"></i> ' if index == 0 %>
+    <% label = "#{icon}#{crumb.label}".html_safe %>
+    <% css_class = 'active' if index == crumbs.length-1 %>
+    <li class='<%= css_class %>'><%= link_to label, crumb.path %></li>
+  <% end %>
+</ol>

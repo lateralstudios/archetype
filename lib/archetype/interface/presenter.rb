@@ -12,12 +12,12 @@ module Archetype
       end
 
       def navigation
-        @navigation ||= prepare_navigation
+        @navigation ||= Navigation.new(build_navigation)
       end
 
-      # def breadcrumbs
-      #   @breadcrumbs ||= Breadcrumbs.new
-      # end
+      def breadcrumbs
+        @breadcrumbs ||= Breadcrumb.new(controller.class._crumbs)
+      end
 
       protected
 
@@ -25,12 +25,10 @@ module Archetype
         controller.archetype_name.humanize
       end
 
-      def prepare_navigation
-        navigable = []
-        Archetype.controllers.each do |_, c|
-          navigable << c.navigation if c.respond_to?(:navigation)
-        end
-        Navigation.new(navigable.compact)
+      def build_navigation
+        navigable = Archetype.controllers.map do |_, c|
+          c._navigation if c.respond_to?(:_navigation)
+        end.compact
       end
     end
   end

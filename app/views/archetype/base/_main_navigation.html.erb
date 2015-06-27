@@ -3,7 +3,7 @@
   <% interface.navigation.each do |navigable| %>
   <li class="active">
     <%= link_to instance_exec(&navigable.path) do %>
-      <i class="fa fa-<%= navigable.icon %>"></i> <span><%= navigable.title %></span></i>
+      <i class="fa fa-<%= navigable.icon %>"></i> <span><%= navigable.label %></span></i>
     <% end %>
   </li>
   <% end %>
