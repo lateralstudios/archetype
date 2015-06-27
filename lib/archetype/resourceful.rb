@@ -4,6 +4,7 @@ require 'archetype/resourceful/attributes'
 require 'archetype/resourceful/actions'
 require 'archetype/resourceful/dsl'
 require 'archetype/resourceful/presenter'
+require 'archetype/resourceful/resource_presenter' # just resource.rb ?
 
 module Archetype
   module Resourceful

@@ -3,5 +3,5 @@
   <% resourceful.attributes(:index).first(5).each do |attribute| %>
     <td><%= attribute.from(table_item) %></td>
   <% end %>
-  <td><%= render 'table_item_controls' %></td>
+  <td><%= render 'table_item_controls', table_item: table_item %></td>
 </tr>
