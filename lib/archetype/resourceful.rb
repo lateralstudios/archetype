@@ -1,10 +1,13 @@
 require 'responders'
+require 'has_scope'
+require 'kaminari'
 require 'archetype/resourceful/base'
 require 'archetype/resourceful/attributes'
 require 'archetype/resourceful/actions'
 require 'archetype/resourceful/dsl'
 require 'archetype/resourceful/presenter'
 require 'archetype/resourceful/resource_presenter' # just resource.rb ?
+require 'archetype/resourceful/paginated'
 
 module Archetype
   module Resourceful
@@ -15,6 +18,7 @@ module Archetype
     include Base
     include Actions
     include Attributes
+    include Paginated
 
     included do
       extend DSL
