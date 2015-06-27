@@ -12,6 +12,11 @@ module Archetype
           undef_method(a, "#{a}!")
         end
       end
+
+      def per_page(per)
+        @_per_page = per
+        has_scope :per, default: _per_page
+      end
     end
   end
 end
