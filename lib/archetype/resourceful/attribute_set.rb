@@ -8,13 +8,13 @@ module Archetype
         super(attributes)
       end
 
-      def find(names)
-        AttributeSet.new(with_names(names))
+      def find(*names)
+        self.class.new(with_names(names.flatten))
       end
 
       def for(context=nil)
         return self unless context.present?
-        AttributeSet.new(with_context(context))
+        self.class.new(with_context(context))
       end
 
       def update(params)

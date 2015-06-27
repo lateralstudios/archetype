@@ -1,5 +1,5 @@
 require 'responders'
-require 'archetype/resourceful/resource'
+require 'archetype/resourceful/base'
 require 'archetype/resourceful/attributes'
 require 'archetype/resourceful/actions'
 require 'archetype/resourceful/dsl'
@@ -11,8 +11,8 @@ module Archetype
 
     RESOURCEFUL_ACTIONS = [:index, :show, :new, :create, :edit, :update, :destroy]
 
+    include Base
     include Actions
-    include Resource
     include Attributes
 
     included do

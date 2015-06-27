@@ -3,7 +3,7 @@ module Archetype
     class Attribute
       attr_accessor :name, :type, :contexts, :object
 
-      def initialize(name, type, options={})
+      def initialize(name, type=:string, options={})
         @name = name.to_sym
         @type = type.to_sym
         @contexts = options[:contexts] || default_contexts
@@ -38,7 +38,7 @@ module Archetype
 
       def default_contexts
         return [] if %i(id created_at updated_at).include?(name)
-        contexts  = [:new, :edit] 
+        contexts  = [:new, :edit, :show] 
         contexts += [:index] unless type == :text
         contexts
       end

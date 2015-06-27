@@ -1,10 +1,10 @@
 module Archetype
   module Resourceful
-    module Resource
+    module Base
       extend ActiveSupport::Concern
 
       included do
-        helper_method :collection, :resource
+        helper_method :resource_class
       end
 
       module ClassMethods
