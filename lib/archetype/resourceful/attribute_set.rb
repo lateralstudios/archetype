@@ -14,6 +14,10 @@ module Archetype
         attribute
       end
 
+      def [](name)
+        find(name).first
+      end
+
       def find(*names)
         self.class.new(with_names(names.flatten))
       end
