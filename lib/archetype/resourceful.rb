@@ -8,6 +8,7 @@ require 'archetype/resourceful/actions'
 require 'archetype/resourceful/dsl'
 require 'archetype/resourceful/presenter'
 require 'archetype/resourceful/resource_presenter' # just resource.rb ?
+require 'archetype/resourceful/parameters'
 require 'archetype/resourceful/paginated'
 
 module Archetype
@@ -19,6 +20,7 @@ module Archetype
     include Base
     include Actions
     include Attributes
+    include Parameters
     include Paginated
 
     included do

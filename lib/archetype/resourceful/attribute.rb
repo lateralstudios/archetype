@@ -14,6 +14,8 @@ module Archetype
         name.to_s.humanize
       end
 
+      alias_method :param, :name
+
       def from(object)
         object.send(name)
       end

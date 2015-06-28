@@ -5,11 +5,20 @@ module Archetype
 
       included do
         helper_method :resource_class
+        delegate :resource_collection_name, :resource_instance_name, to: :class
       end
 
       module ClassMethods
         def resource_class
           controller_name.classify.safe_constantize
+        end
+
+        def resource_collection_name
+          archetype_name.to_sym
+        end
+
+        def resource_instance_name
+          archetype_name.singularize.to_sym
         end
       end
 
@@ -80,30 +89,6 @@ module Archetype
         respond_to?(:apply_scopes, true) ? apply_scopes(target_object) : target_object
       end
 
-      def resource_collection_name
-        archetype_name.to_sym
-      end
-
-      def resource_instance_name
-        archetype_name.singularize.to_sym
-      end
-
-      def resource_params
-        parameters = permitted_params || params
-        parameters[resource_instance_name] || {}
-      end
-
-      def permitted_params
-        return nil unless respond_to?("#{resource_instance_name}_params", true)
-        {resource_instance_name => send("#{resource_instance_name}_params")}
-      rescue ActionController::ParameterMissing
-        # typically :new action
-        if params[:action].to_s == 'new'
-          {resource_instance_name => {}}
-        else
-          raise
-        end
-      end
     end
   end
 end
