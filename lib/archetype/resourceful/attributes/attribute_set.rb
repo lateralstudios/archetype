@@ -47,6 +47,7 @@ module Archetype
         end
 
         def self.discover_attributes(model)
+          return [] unless model.table_exists?
           model.columns.map{|c| Attribute.from_column(c) }
         end
       end
