@@ -9,7 +9,11 @@
           <%= render 'collection_controls' %>
         </div><!-- /.box-header -->
         <div class="box-body">
-          <%= render 'table' %>
+          <% if resourceful.collection.any? %>
+            <%= render 'table' %>
+          <% else %>
+            <p>No entries were found</p>
+          <% end %>
         </div><!-- /.box-body -->
         <div class="box-footer clearfix">
           <%= render 'pagination' %>
