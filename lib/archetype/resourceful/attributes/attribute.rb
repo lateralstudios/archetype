@@ -33,7 +33,7 @@ module Archetype
 
         def default_contexts
           return [] if %i(id created_at updated_at).include?(name)
-          contexts  = [:new, :edit, :show] 
+          contexts  = [:new, :edit, :show, :create, :update] 
           contexts += [:index] unless type == :text
           contexts
         end

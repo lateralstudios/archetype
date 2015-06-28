@@ -5,14 +5,7 @@ module Archetype
       
       included do
         define_method "#{resource_instance_name}_params" do
-          context = case action_name
-          when 'create'
-            :new
-          when 'update'
-            :edit
-          else
-            action_name.to_sym
-          end
+          context = action_name.to_sym
           attr_params = resourceful.attributes(context).map(&:param)
           params.require(resource_instance_name).permit(attr_params)
         end
