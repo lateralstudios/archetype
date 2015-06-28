@@ -62,7 +62,7 @@ module Archetype
       end
 
       def method_for_build 
-        :build
+        :new
       end
 
       def method_for_find
