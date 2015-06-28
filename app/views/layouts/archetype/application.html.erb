@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title><%= interface.meta_title %></title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
   <%= stylesheet_link_tag    "https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", media: "all" %>
@@ -23,7 +23,10 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo"><b>Admin</b>LTE</a>
+    <a href="index2.html" class="logo">
+      <% site_name = interface.site_name.split(' ', 2) %>
+      <b><%= site_name[0] %></b><%= site_name[1] %>
+    </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
       <!-- Sidebar toggle button-->
@@ -35,8 +38,8 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <%= image_tag 'archetype/adminlte/user2-160x160.jpg', class: 'user-image', alt: 'User Image' %>
-              <span class="hidden-xs">Alexander Pierce</span>
+              <%#= image_tag 'archetype/adminlte/user2-160x160.jpg', class: 'user-image', alt: 'User Image' %>
+              <span class="hidden-xs"><%= archetype_user.to_s %></span>
             </a>
           </li>
         </ul>

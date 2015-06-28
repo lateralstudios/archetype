@@ -7,6 +7,14 @@ module Archetype
         @controller = controller
       end
 
+      def site_name
+        Archetype.application.config.site_name
+      end
+
+      def meta_title
+        [title, Array.wrap(site_name).join(' ')].join(' | ')
+      end
+
       def title
         @title ||= build_title
       end
