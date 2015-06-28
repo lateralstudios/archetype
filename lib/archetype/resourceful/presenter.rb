@@ -27,11 +27,6 @@ module Archetype
         @collection ||= resourceful.send(:collection)
       end
 
-      def resource_name
-        return archetype_name unless resource && resource.persisted?
-        resource.name
-      end
-
       private
 
       def resourceful_resource

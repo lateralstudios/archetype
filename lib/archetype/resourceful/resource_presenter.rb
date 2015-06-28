@@ -10,6 +10,7 @@ module Archetype
       end
 
       def name
+        return resource.class.to_s unless resource.persisted?
         name_attribute.from(resource)
       end
 
