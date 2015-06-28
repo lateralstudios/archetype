@@ -3,9 +3,9 @@ module Archetype
     class Attribute
       attr_accessor :name, :type, :contexts, :object
 
-      def initialize(name, type=:string, options={})
+      def initialize(name, type=nil, options={})
         @name = name.to_sym
-        @type = type.to_sym
+        @type = (type || 'string').to_sym
         @contexts = options[:contexts] || default_contexts
         @object = options[:object]
       end

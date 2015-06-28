@@ -8,6 +8,12 @@ module Archetype
         super(attributes)
       end
 
+      def new(name, opts={})
+        attribute = Attribute.new(name, opts.delete(:type), opts)
+        @attributes << attribute
+        attribute
+      end
+
       def find(*names)
         self.class.new(with_names(names.flatten))
       end
