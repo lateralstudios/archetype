@@ -1,3 +1,3 @@
 <%= link_to 'View', table_item, class: 'btn btn-sm btn-default' %>
 <%= link_to 'Edit', [:edit, table_item], class: 'btn btn-sm btn-primary' %>
-<a class="btn btn-sm btn-danger">Delete</a>
+<%= link_to 'Delete', [table_item], class: 'btn btn-sm btn-danger', method: :delete, data: {confirm: 'Are you sure you want to delete this entry?'} %>
