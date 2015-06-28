@@ -36,7 +36,7 @@ module Archetype
       end
 
       def build_resource
-        get_resource_ivar || set_resource_ivar(end_of_association_chain.send(method_for_build, *resource_params))
+        get_resource_ivar || set_resource_ivar(end_of_association_chain.send(method_for_build, resource_params))
       end
 
       def create_resource(object)
