@@ -17,6 +17,10 @@ module Archetype
       @application ||= Archetype::Application.new
     end
 
+    def configure
+      yield(application.config)
+    end
+
     def reload!
       application.reload!
     end

@@ -1,7 +1,13 @@
+require "archetype/configuration"
 require "archetype/controller"
 
 module Archetype
   class Application
+    attr_accessor :config
+    def config
+      @config ||= Configuration.new
+    end
+
     def register(controller)
       name = controller.archetype_name.to_sym
       controllers[name] = Controller.new(controller)
