@@ -1,11 +1,11 @@
 <ul class="sidebar-menu">
   <li class="header">MAIN NAVIGATION</li>
   <% interface.navigation.each do |navigable| %>
-  <li class="active">
-    <%= link_to instance_exec(&navigable.path) do %>
-      <i class="fa fa-<%= navigable.icon %>"></i> <span><%= navigable.label %></span></i>
-    <% end %>
-  </li>
+    <li class="<%= 'active' if interface.navigation.active?(navigable) %>">
+      <%= link_to instance_exec(&navigable.path) do %>
+        <i class="fa fa-<%= navigable.icon %>"></i> <span><%= navigable.label %></span></i>
+      <% end %>
+    </li>
   <% end %>
   <!--
   <li class="active treeview">

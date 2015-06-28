@@ -12,7 +12,7 @@ module Archetype
       end
 
       def navigation
-        @navigation ||= Navigation.new(build_navigation)
+        @navigation ||= Navigation.new(build_navigation, current_navigation)
       end
 
       def breadcrumbs
@@ -20,6 +20,10 @@ module Archetype
       end
 
       protected
+
+      def current_navigation
+        controller.class.try(:_navigation)
+      end
 
       def build_title
         controller.archetype_name.humanize
