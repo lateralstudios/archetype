@@ -4,14 +4,11 @@ module Archetype
       class SimpleFormInput < DelegateClass(Archetype::Resourceful::Attributes::Attribute)
         def input_options
           opts = {}
-          user_opts = options[:input] || {}
-          opts[:as] = type
-          collection = options[:collection] || user_opts[:collection]
-          if collection
-            opts[:as] = :select
-            opts[:collection] = collection
-          end
-          opts.merge!(user_opts)
+          input_opts = options[:input] || {}
+          opts[:as] = input_opts[:as]
+          collection = options[:collection] || input_opts[:collection]
+          opts[:collection] = options[:collection]
+          opts.merge!(input_opts)
         end
       end
     end
