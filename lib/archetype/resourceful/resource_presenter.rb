@@ -17,7 +17,7 @@ module Archetype
       end
 
       def name_attribute
-        @name_attribute ||= resourceful.attributes.detect(to_s_attribute) do |attr|
+        @name_attribute ||= resourceful.attributes.detect(->{to_s_attribute}) do |attr|
           %i(name title label).include?(attr.name)
         end
       end
