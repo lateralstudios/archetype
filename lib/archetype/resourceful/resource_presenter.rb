@@ -9,6 +9,8 @@ module Archetype
         super(resource)
       end
 
+      alias_method :form_object, :resource
+
       def name
         return resource.class.to_s unless resource.persisted?
         name_attribute.from(resource)
