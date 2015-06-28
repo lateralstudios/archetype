@@ -1,0 +1,9 @@
+<div class="box-body">
+  <%= yield %>
+</div><!-- /.box-body -->
+<div class="box-footer clearfix">
+  <div class='pull-right'>
+    <%= link_to 'Back', resource_class, class: 'btn btn-sm btn-default' %>
+    <%= f.submit 'Save', class: 'btn btn-sm btn-primary' %>
+  </div>
+</div>

@@ -3,7 +3,7 @@ module Archetype
     class Presenter < SimpleDelegator
       attr_accessor :resourceful
 
-      delegate :attributes, to: :resourceful_class
+      delegate :archetype_name, :attributes, to: :resourceful_class
 
       def initialize(resourceful)
         @resourceful = resourceful
@@ -15,14 +15,24 @@ module Archetype
       end
 
       def resource
-        @resource ||= ResourcePresenter.new(resourceful.send(:resource), self)
+        return unless resourceful_resource
+        @resource ||= ResourcePresenter.new(resourceful_resource, self)
       end
 
       def collection
         @collection ||= resourceful.send(:collection)
       end
 
+      def resource_name
+        return archetype_name unless resource && resource.persisted?
+        resource.name
+      end
+
       private
+
+      def resourceful_resource
+        resourceful.send(:resource)
+      end
 
       def resourceful_class
         @resourceful.class

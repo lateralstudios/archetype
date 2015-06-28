@@ -35,7 +35,7 @@ module Archetype
       end
 
       def update_resource(object, attributes)
-        object.update_attributes(*attributes)
+        object.update_attributes(attributes)
       end
 
       def destroy_resource(object)
