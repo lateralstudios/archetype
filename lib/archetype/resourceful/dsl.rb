@@ -24,7 +24,7 @@ module Archetype
 
       def per_page(per)
         @_per_page = per
-        has_scope :per, default: _per_page
+        scopes_configuration[:per][:default] = @_per_page
       end
     end
   end
