@@ -20,6 +20,16 @@ module Archetype
       def archetype_controller
         Archetype.controllers[archetype_name.to_sym]
       end
+
+      def local_prefixes
+        super.push('archetype/base')
+      end
+  
+      # TODO: untested, probably works..
+      def inherited?(base)
+        super
+        Archetype.register(base)
+      end
     end
 
   end
