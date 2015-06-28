@@ -18,7 +18,7 @@ module Archetype
     end
 
     def reload!
-      @application = nil
+      application.reload!
     end
   end
 
