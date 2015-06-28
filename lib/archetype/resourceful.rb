@@ -1,6 +1,7 @@
 require 'responders'
 require 'has_scope'
 require 'kaminari'
+require 'simple_form'
 require 'archetype/resourceful/base'
 require 'archetype/resourceful/attributes'
 require 'archetype/resourceful/actions'
