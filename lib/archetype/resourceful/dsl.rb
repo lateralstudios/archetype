@@ -17,8 +17,8 @@ module Archetype
         opts = args.extract_options!
         attributes = args.delete(:all) ? _attributes : _attributes.find(args)
         to_create = args - attributes.map(&:name)
-        attributes.update(opts)
-        to_create.each{|a| _attributes.new(a, opts) }
+        attributes.update(opts.clone)
+        to_create.each{|a| _attributes.new(a, opts.clone) }
       end
       alias_method :attribute, :attributes
 
