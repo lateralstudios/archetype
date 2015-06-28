@@ -29,7 +29,7 @@ module Archetype
         end
 
         def update(params)
-          attributes.each{|a| a.update(params) }
+          attributes.each{|a| a.update(params.clone) }
         end
 
         private
