@@ -1,5 +1,6 @@
-require 'archetype/resourceful/attribute_set'
-require 'archetype/resourceful/attribute'
+require 'archetype/resourceful/attributes/attribute_set'
+require 'archetype/resourceful/attributes/attribute'
+require 'archetype/resourceful/attributes/simple_form_input'
 
 module Archetype
   module Resourceful

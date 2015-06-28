@@ -22,7 +22,7 @@ module Archetype
       private
       
       def to_s_attribute
-        Attribute.new(:to_s)
+        Attributes::Attribute.new(:to_s)
       end
     end
   end

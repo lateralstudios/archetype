@@ -14,6 +14,10 @@ module Archetype
         resourceful_class._attributes.for(context)
       end
 
+      def form_attributes(context=nil)
+        attributes(context).map{|a| Attributes::SimpleFormInput.new(a) }
+      end
+
       def resource
         return unless resourceful_resource
         @resource ||= ResourcePresenter.new(resourceful_resource, self)
