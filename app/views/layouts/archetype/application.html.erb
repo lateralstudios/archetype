@@ -41,6 +41,21 @@
               <%#= image_tag 'archetype/adminlte/user2-160x160.jpg', class: 'user-image', alt: 'User Image' %>
               <span class="hidden-xs"><%= interface.name_for(archetype_user) %></span>
             </a>
+            <ul class="dropdown-menu">
+              <li class="user-footer">
+                <%# <div class="pull-left"> %>
+                <%#   <a href="#" class="btn btn-default btn-flat">Profile</a> %>
+                <%# </div> %>
+                <div class="row">
+                  <div class='col-xs-7'>
+                    Signed in as <br /><%= interface.name_for(archetype_user) %>
+                  </div>
+                  <div class="col-xs-5">
+                    <%= link_to "Sign out", destroy_admin_session_path, class: 'btn btn-default btn-flat btn-block', method: :delete %>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
