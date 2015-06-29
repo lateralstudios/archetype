@@ -19,6 +19,11 @@ module Archetype
         @title ||= build_title
       end
 
+      def name_for(object)
+        key = %i(name title label).find{|k| object.respond_to?(k) && object.send(k).present? }
+        key ? object.send(key) : object.class.to_s.demodulize.underscore.humanize
+      end
+
       def navigation
         @navigation ||= Navigation.new(build_navigation, current_navigation)
       end

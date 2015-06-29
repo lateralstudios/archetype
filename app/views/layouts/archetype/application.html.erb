@@ -39,7 +39,7 @@
           <li class="user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <%#= image_tag 'archetype/adminlte/user2-160x160.jpg', class: 'user-image', alt: 'User Image' %>
-              <span class="hidden-xs"><%= archetype_user.to_s %></span>
+              <span class="hidden-xs"><%= interface.name_for(archetype_user) %></span>
             </a>
           </li>
         </ul>

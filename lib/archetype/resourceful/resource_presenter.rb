@@ -2,6 +2,7 @@ module Archetype
   module Resourceful
     class ResourcePresenter < SimpleDelegator
       attr_accessor :resourceful, :resource
+      delegate :class, to: :resource
 
       def initialize(resource, resourceful)
         @resource = resource
@@ -10,17 +11,6 @@ module Archetype
       end
 
       alias_method :form_object, :resource
-
-      def name
-        return resource.class.to_s unless resource.persisted?
-        name_attribute.from(resource)
-      end
-
-      def name_attribute
-        @name_attribute ||= resourceful.attributes.detect(->{to_s_attribute}) do |attr|
-          %i(name title label).include?(attr.name)
-        end
-      end
 
       private
       
