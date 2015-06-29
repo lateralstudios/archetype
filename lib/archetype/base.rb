@@ -19,11 +19,11 @@ module Archetype
     
     module BaseHelpers
       def archetype_name
-        controller_name
+        controller_name.to_sym
       end
 
       def archetype_controller
-        Archetype.controllers[archetype_name.to_sym]
+        Archetype.controllers[archetype_name]
       end
 
       def local_prefixes

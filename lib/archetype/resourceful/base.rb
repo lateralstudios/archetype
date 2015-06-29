@@ -10,15 +10,19 @@ module Archetype
 
       module ClassMethods
         def resource_class
-          controller_name.classify.safe_constantize
+          resource_name.classify.safe_constantize
         end
 
         def resource_collection_name
-          archetype_name.to_sym
+          resource_name.to_sym
         end
 
         def resource_instance_name
-          archetype_name.singularize.to_sym
+          resource_name.singularize.to_sym
+        end
+
+        def resource_name
+          controller_name
         end
       end
 

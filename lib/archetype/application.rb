@@ -9,7 +9,7 @@ module Archetype
     end
 
     def register(controller)
-      name = controller.archetype_name.to_sym
+      name = controller.archetype_name
       controllers[name] = Controller.new(controller)
     end
 

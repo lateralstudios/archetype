@@ -39,7 +39,7 @@ module Archetype
       end
 
       def build_title
-        controller.archetype_name.humanize
+        controller.archetype_name.to_s.humanize
       end
 
       def build_navigation
