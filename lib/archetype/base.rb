@@ -11,10 +11,17 @@ module Archetype
       Archetype.register(self)
       delegate :archetype_name, to: :class
       helper_method :archetype_user
+      before_filter :authenticate_archetype!
     end
 
     def archetype_user
       send(Archetype.application.config.user_method)
+    end
+
+    private
+
+    def authenticate_archetype!
+      send(Archetype.application.config.authenticate_method)
     end
     
     module BaseHelpers

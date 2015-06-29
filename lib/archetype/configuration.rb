@@ -4,7 +4,7 @@ module Archetype
     
     def initialize
       @site_name = 'Archetype Admin'
-      @user_method = :current_user
+      @user_method = :current_admin
       @authenticate_method = :authenticate_admin!
     end
   end
