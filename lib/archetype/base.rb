@@ -6,10 +6,12 @@ module Archetype
 
     included do
       extend BaseHelpers
+      Archetype.register(self)
+
       include Archetype::Interface
 
-      Archetype.register(self)
       delegate :archetype_name, to: :class
+      delegate :configuration, to: :class
       helper_method :archetype_user
       before_filter :authenticate_archetype!
     end
@@ -25,6 +27,14 @@ module Archetype
     end
     
     module BaseHelpers
+      def archetype
+        archetype_controller
+      end
+
+      def configuration
+        archetype.configuration
+      end
+
       def archetype_name
         controller_name.to_sym
       end

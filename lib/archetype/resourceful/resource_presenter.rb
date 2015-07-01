@@ -11,12 +11,6 @@ module Archetype
       end
 
       alias_method :form_object, :resource
-
-      private
-      
-      def to_s_attribute
-        Attributes::Attribute.new(:to_s)
-      end
     end
   end
 end

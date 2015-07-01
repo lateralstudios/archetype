@@ -2,10 +2,10 @@ require 'responders'
 require 'has_scope'
 require 'kaminari'
 require 'simple_form'
+require 'archetype/resourceful/configuration'
 require 'archetype/resourceful/base'
-require 'archetype/resourceful/attributes'
 require 'archetype/resourceful/actions'
-require 'archetype/resourceful/dsl'
+require 'archetype/resourceful/attributes'
 require 'archetype/resourceful/presenter'
 require 'archetype/resourceful/resource_presenter' # just resource.rb ?
 require 'archetype/resourceful/parameters'
@@ -17,17 +17,22 @@ module Archetype
 
     RESOURCEFUL_ACTIONS = [:index, :show, :new, :create, :edit, :update, :destroy]
 
-    include Base
-    include Actions
-    include Attributes
-    include Parameters
-    include Paginated
+    class << self
+      def config_for(controller)
+        Configuration.new(controller)
+      end
+    end
 
     included do
-      extend DSL
-
       prepend_view_path 'app/views/archetype/resource'
       helper_method :resourceful
+
+      archetype.module(:resourceful, Resourceful)
+
+      include Base
+      include Actions
+      include Parameters
+      include Paginated
     end
 
     def resourceful

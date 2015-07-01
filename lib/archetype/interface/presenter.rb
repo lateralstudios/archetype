@@ -29,13 +29,17 @@ module Archetype
       end
 
       def breadcrumbs
-        @breadcrumbs ||= Breadcrumb.new(controller.class._crumbs)
+        @breadcrumbs ||= Breadcrumb.new(configuration.crumbs)
+      end
+
+      def configuration
+        controller.configuration.interface
       end
 
       protected
 
       def current_navigation
-        controller.class.try(:_navigation)
+        configuration.navigation
       end
 
       def build_title
@@ -44,7 +48,7 @@ module Archetype
 
       def build_navigation
         navigable = Archetype.controllers.map do |_, c|
-          c._navigation if c.respond_to?(:_navigation)
+          c.configuration.interface.navigation if c.has_module?(:interface)
         end.compact
       end
     end

@@ -1,4 +1,4 @@
-require 'archetype/interface/dsl'
+require 'archetype/interface/configuration'
 require 'archetype/interface/presenter'
 require 'archetype/interface/navigable'
 require 'archetype/interface/navigation'
@@ -9,18 +9,24 @@ module Archetype
   module Interface
     extend ActiveSupport::Concern
 
+    class << self
+      def config_for(controller)
+        Configuration.new(controller)
+      end
+    end
+
     included do
-      extend DSL
       layout 'archetype/application'
       helper_method :interface
-      crumb archetype_name
+
+      archetype.module(:interface, Interface)
+      archetype.config do
+        crumb controller.archetype_name
+      end
     end
 
     def interface
       @interface ||= Presenter.new(self) 
-    end
-
-    module ClassMethods
     end
   end
 end

@@ -11,7 +11,7 @@ module Archetype
       end
 
       def attributes(context=nil)
-        resourceful_class._attributes.for(context)
+        configuration.attributes.for(context)
       end
 
       def form_attributes(context=nil)
@@ -33,8 +33,8 @@ module Archetype
         resourceful.send(:resource)
       end
 
-      def resourceful_class
-        @resourceful.class
+      def configuration
+        @resourceful.configuration.resourceful
       end
     end
   end

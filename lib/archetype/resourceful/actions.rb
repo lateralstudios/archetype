@@ -7,17 +7,6 @@ module Archetype
         respond_to :html
       end
 
-      module ClassMethods
-        def _actions
-          @_actions ||= default_actions
-        end
-
-        def default_actions
-          Archetype::Resourceful::RESOURCEFUL_ACTIONS
-        end
-      end
-
-
       # GET /resources
       def index(options={}, &block)
         respond_with(collection, options, &block)

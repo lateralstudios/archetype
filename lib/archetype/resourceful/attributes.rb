@@ -11,9 +11,6 @@ module Archetype
       end
 
       module ClassMethods
-        def _attributes
-          @_attributes ||= AttributeSet.from_model(resource_class)
-        end
       end
     end
   end
