@@ -48,7 +48,7 @@ module Archetype
 
       def build_navigation
         navigable = Archetype.controllers.map do |_, c|
-          c.configuration.interface.navigation if c.has_module?(:interface)
+          c.configuration.interface.navigation if c.module?(:interface)
         end.compact
       end
     end

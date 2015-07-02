@@ -11,7 +11,7 @@ module Archetype
       super(controller)
     end
 
-    def has_module?(name)
+    def module?(name)
       modules.key?(name.to_sym)
     end
 
