@@ -48,7 +48,12 @@ module Archetype
 
         def self.discover_attributes(model)
           return [] unless model.table_exists?
-          model.columns.map{|c| Attribute.from_column(c) }
+          associations = model.reflect_on_all_associations
+          model.columns.map do |column|
+            association = associations.find{|a| a.foreign_key == column.name}
+            next Association.from_column(column, association) if association
+            Attribute.from_column(column)
+          end
         end
       end
     end

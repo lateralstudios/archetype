@@ -1,6 +1,6 @@
 <tr>
   <td><%= check_box_tag :selection %></td>
-  <% resourceful.attributes(:index).first(5).each do |attribute| %>
+  <% resourceful.attributes(:index).each do |attribute| %>
     <td><%= attribute.from(table_item) %></td>
   <% end %>
   <td><%= render 'table_item_controls', table_item: table_item %></td>

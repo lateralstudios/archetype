@@ -4,6 +4,9 @@ module Archetype
       class Attribute
         attr_accessor :name, :type, :contexts, :column, :options
 
+        ATTRIBUTE_CLASSES = {
+        }
+
         def initialize(name, type=nil, options={})
           @name = name.to_sym
           @type = (type || 'string').to_sym
@@ -12,8 +15,8 @@ module Archetype
           @options = options || {}
         end
 
-        def label
-          name.to_s.humanize
+        def presenter
+          @presenter ||= AttributePresenter.new(self)
         end
 
         alias_method :param, :name
@@ -49,7 +52,11 @@ module Archetype
         end
 
         def self.from_column(column)
-          new(column.name, column.type, {column: column})
+          class_for(column).new(column.name, column.type, {column: column})
+        end
+
+        def self.class_for(column)
+          ATTRIBUTE_CLASSES[column.type.to_sym] || self
         end
       end
     end

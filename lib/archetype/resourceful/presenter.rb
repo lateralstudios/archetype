@@ -11,11 +11,11 @@ module Archetype
       end
 
       def attributes(context=nil)
-        configuration.attributes.for(context)
+        configuration.attributes.for(context).map(&:presenter)
       end
 
       def form_attributes(context=nil)
-        attributes(context).map{|a| Attributes::SimpleFormInput.new(a) }
+        attributes(context).map(&:field)
       end
 
       def resource
