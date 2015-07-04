@@ -10,7 +10,7 @@ module Archetype
       end
 
       def label
-        name.to_s.humanize
+        options[:label] || name.to_s.humanize
       end
 
       def field

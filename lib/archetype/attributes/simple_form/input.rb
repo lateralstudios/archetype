@@ -16,7 +16,8 @@ module Archetype
 
         def input_options
           {
-            collection: collection
+            collection: collection,
+            label: label
           }.compact.merge(options[:input])
         end
       end
