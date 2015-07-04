@@ -1,6 +1,6 @@
 <tr>
   <th style="width: 10px"></th>
-  <% resourceful.attributes(:index).each do |attribute| %>
+  <% attributes.for(:index).each do |attribute| %>
     <th><%= attribute.label %></th>
   <% end %>
   <th style="width: 170px">Actions</th>

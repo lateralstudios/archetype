@@ -2,7 +2,7 @@ module Archetype
   module Resourceful
     class Configuration
       attr_reader :controller
-      attr_writer :actions, :per_page, :attributes
+      attr_writer :actions, :per_page
 
       def initialize(controller)
         @controller = controller
@@ -10,10 +10,6 @@ module Archetype
 
       def actions
         @actions ||= default_actions
-      end
-
-      def attributes
-        @attributes ||= Archetype::Resourceful::Attributes::AttributeSet.from_model(controller.resource_class)
       end
 
       def per_page
@@ -35,18 +31,11 @@ module Archetype
           actions = actions - Array.wrap(opts[:except]) if opts.key?(:except)
           actions |= args if args.any?
           (default_actions - actions).each do |a|
-            undef_method(a, "#{a}!")
+            controller.class_eval do
+              undef_method(a, "#{a}!")
+            end
           end
         end
-
-        def attributes(*args)
-          opts = args.extract_options!
-          attributes = args.delete(:all) ? resourceful.attributes : resourceful.attributes.find(args)
-          to_create = args - attributes.map(&:name)
-          attributes.update(opts.clone)
-          to_create.each{|a| resourceful.attributes.new(a, opts.clone) }
-        end
-        alias_method :attribute, :attributes
 
         def per_page(per)
           resourceful.per_page = per

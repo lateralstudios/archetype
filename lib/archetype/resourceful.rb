@@ -2,10 +2,10 @@ require 'responders'
 require 'has_scope'
 require 'kaminari'
 require 'simple_form'
+require 'archetype/attributes'
 require 'archetype/resourceful/configuration'
 require 'archetype/resourceful/base'
 require 'archetype/resourceful/actions'
-require 'archetype/resourceful/attributes'
 require 'archetype/resourceful/presenter'
 require 'archetype/resourceful/resource_presenter' # just resource.rb ?
 require 'archetype/resourceful/parameters'
@@ -29,10 +29,16 @@ module Archetype
 
       archetype.module(:resourceful, Resourceful)
 
+      include Archetype::Attributes
+
       include Base
       include Actions
       include Parameters
       include Paginated
+
+      archetype.config do
+        attribute_model controller.resource_class
+      end
     end
 
     def resourceful

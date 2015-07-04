@@ -9,7 +9,7 @@
         </div><!-- /.box-header -->
         <div class="box-body">
           <dl class="dl-horizontal">
-            <% resourceful.attributes(:show).each do |attribute| %>
+            <% attributes.for(:show).each do |attribute| %>
               <dt><%= attribute.label %></dt>
               <dd><%= attribute.from(resourceful.resource) %></dd>
             <% end %>
