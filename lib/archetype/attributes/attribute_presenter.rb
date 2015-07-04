@@ -14,7 +14,7 @@ module Archetype
       end
 
       def field
-        Attributes::SimpleForm::Input.new(self)
+        SimpleForm::Input.new(self)
       end
     end
   end

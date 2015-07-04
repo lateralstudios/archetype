@@ -1,7 +1,7 @@
 <tr>
   <td><%= check_box_tag :selection %></td>
   <% attributes.for(:index).each do |attribute| %>
-    <td><%= attribute.from(table_item) %></td>
+    <td><%= attribute.short_format(table_item) %></td>
   <% end %>
   <td><%= render 'table_item_controls', table_item: table_item %></td>
 </tr>

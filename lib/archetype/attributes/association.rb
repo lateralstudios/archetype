@@ -12,6 +12,10 @@ module Archetype
         super(name, macro, options)
       end
 
+      def many?
+        %i(has_many has_many_or_belongs_to).include?(type)
+      end
+
       def presenter
         @presenter ||= AssociationPresenter.new(self)
       end
