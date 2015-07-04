@@ -24,7 +24,7 @@ module Archetype
     end
 
     included do
-      prepend_view_path 'app/views/archetype/resource'
+      # prepend_view_path 'app/views/archetype/resource'
       helper_method :resourceful
 
       archetype.module(:resourceful, Resourceful)

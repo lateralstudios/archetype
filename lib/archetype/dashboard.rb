@@ -3,6 +3,11 @@ module Archetype
     extend ActiveSupport::Concern
 
     included do
+      archetype.module(:dashboard, Dashboard)
+
+      archetype.config do
+        navigable :dashboard, ->{ :root }, icon: 'home', position: 0
+      end
     end
 
     def show
@@ -10,8 +15,8 @@ module Archetype
     end
 
     module ClassMethods
-      def controller_path
-        'dashboard'
+      def local_prefixes
+        super.push('archetype/dashboard')
       end
     end
   end
