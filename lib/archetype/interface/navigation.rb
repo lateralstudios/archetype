@@ -23,7 +23,7 @@ module Archetype
             a.name <=> b.name
           end
         end
-        self.class.new(sorted)
+        self.class.new(sorted, current)
       end
     end
   end
