@@ -15,7 +15,7 @@ module Archetype
       private
 
       def method_missing(m, *args, &block)
-        return m = configs[m] if m
+        return configs[m] if configs[m]
         super
       end
 
