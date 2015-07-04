@@ -16,6 +16,10 @@ module Archetype
       def icon
         options[:icon] || 'link'
       end
+
+      def position
+        options[:position]
+      end
     end
   end
 end

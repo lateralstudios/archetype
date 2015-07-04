@@ -25,7 +25,7 @@ module Archetype
       end
 
       def navigation
-        @navigation ||= Navigation.new(build_navigation, current_navigation)
+        @navigation ||= Navigation.new(build_navigation, current_navigation).ordered
       end
 
       def breadcrumbs
