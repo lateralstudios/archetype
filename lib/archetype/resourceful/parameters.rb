@@ -6,7 +6,7 @@ module Archetype
       included do
         define_method "#{resource_instance_name}_params" do
           context = action_name.to_sym
-          attr_params = resourceful.attributes(context).map(&:param)
+          attr_params = attributes.for(context).map(&:param)
           params.require(resource_instance_name).permit(attr_params)
         end
         protected "#{resource_instance_name}_params"
