@@ -28,6 +28,18 @@ module Archetype
       end
 
       def presenter_class
+        return options[:presenter_class] if options.key?(:presenter_class)
+        type_presenter || default_presenter
+      end
+
+      private
+
+      def type_presenter
+        Presenters.const_get "#{type.to_s.classify}Presenter"
+      rescue NameError
+      end
+
+      def default_presenter
         Presenters::AttributePresenter
       end
     end

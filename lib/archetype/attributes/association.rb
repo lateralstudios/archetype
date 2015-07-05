@@ -15,12 +15,14 @@ module Archetype
         %i(has_many has_many_or_belongs_to).include?(type)
       end
 
-      def presenter_class
-        Presenters::AssociationPresenter
-      end
-
       def param
         column.try(:name) || super
+      end
+
+      private
+
+      def default_presenter
+        Presenters::AssociationPresenter
       end
     end
   end

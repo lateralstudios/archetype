@@ -67,7 +67,17 @@ module Archetype
       end
 
       def attribute_class
-        ATTRIBUTE_CLASSES[type.to_sym] || Attribute
+        return options[:class] if options.key?(:class)
+        type_class || default_class
+      end
+
+      def type_class
+        Types.const_get(type.to_s.classify, false)
+      rescue NameError
+      end
+
+      def default_class
+        options[:association] ? Association : Attribute
       end
     end
   end
