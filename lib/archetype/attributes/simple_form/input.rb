@@ -1,7 +1,7 @@
 module Archetype
   module Attributes
     module SimpleForm
-      class Input < DelegateClass(Attribute)
+      class Input < DelegateClass(Types::Attribute)
         def input_for(form)
           form.send form_method, name, input_options 
         end
