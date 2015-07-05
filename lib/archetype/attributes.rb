@@ -1,9 +1,14 @@
 require 'archetype/attributes/attribute_set'
 require 'archetype/attributes/attribute'
 require 'archetype/attributes/association'
-require 'archetype/attributes/attribute_presenter'
-require 'archetype/attributes/association_presenter'
+require 'archetype/attributes/types/uploader'
+require 'archetype/attributes/model_factory'
+require 'archetype/attributes/attribute_factory'
+require 'archetype/attributes/presenters/attribute_presenter'
+require 'archetype/attributes/presenters/uploader_presenter'
+require 'archetype/attributes/presenters/association_presenter'
 require 'archetype/attributes/simple_form/input'
+require 'archetype/attributes/simple_form/uploader'
 require 'archetype/attributes/simple_form/association'
 require 'archetype/attributes/configuration'
 require 'archetype/attributes/presenter'
@@ -25,7 +30,7 @@ module Archetype
     end
 
     def attributes
-      @attributes ||= Presenter.new(self)
+      @attributes ||= Presenter.new(self, view_context)
     end
 
     module ClassMethods

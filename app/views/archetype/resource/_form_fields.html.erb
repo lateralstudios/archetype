@@ -1,3 +1,3 @@
 <% attributes.fields(action_name.to_sym).each do |attribute| %>
-  <%= f.send attribute.form_method, attribute.name, attribute.input_options %>
+  <%= attribute.input_for(f) %>
 <% end %>

@@ -9,21 +9,34 @@ module Archetype
       end
 
       def attributes
-        @attributes ||= Attributes::AttributeSet.new
+        @attributes ||= []
+      end
+
+      def update_attributes(names, params)
+        to_update = attributes.find_all{|a| names.include?(a.name) }
+        to_create = names - to_update.map(&:name)
+        to_update.each do |attribute|
+          index = attributes.index(attribute)
+          attributes.delete(attribute)
+          attributes.insert(index, AttributeFactory.new(params.clone, attribute).attribute)
+        end
+        to_create.each{|a| attributes << AttributeFactory.new({name: a}.merge(params.clone)).attribute }
+      end
+
+      def from_model(model)
+        self.attributes += ModelFactory.new(model).attributes
       end
 
       module DSL
         def attributes(*args)
           opts = args.extract_options!
-          to_update = args.delete(:all) ? configs[:attributes].attributes : configs[:attributes].attributes.only(args)
-          to_create = args - to_update.map(&:name)
-          to_update.update(opts.clone)
-          to_create.each{|a| configs[:attributes].attributes.new(a, opts.clone) }
+          names = args.delete(:all) ? configs[:attributes].attributes.map(&:name) : args
+          configs[:attributes].update_attributes(names, opts)
         end
         alias_method :attribute, :attributes
 
         def attribute_model(model)
-          configs[:attributes].attributes.merge Attributes::AttributeSet.from_model(model)
+          configs[:attributes].from_model(model)
         end
       end
     end
