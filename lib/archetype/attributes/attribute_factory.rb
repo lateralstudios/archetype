@@ -72,8 +72,11 @@ module Archetype
       end
 
       def type_class
-        Types.const_get(type.to_s.classify, false)
-      rescue NameError
+        class_name = type.to_s.classify
+        klass = [class_name, "Attributes::Types::#{class_name}"].find do |const|
+           Archetype.const_defined?(const, false)
+        end
+        Archetype.const_get(klass, false) if klass
       end
 
       def default_class

@@ -35,8 +35,11 @@ module Archetype
       private
 
       def type_presenter
-        Presenters.const_get "#{type.to_s.classify}Presenter"
-      rescue NameError
+        class_name = "#{type.to_s.classify}Presenter"
+        klass = [class_name, "Attributes::Presenters::#{class_name}"].find do |const|
+           Archetype.const_defined?(const, false)
+        end
+        Archetype.const_get(klass, false) if klass
       end
 
       def default_presenter
