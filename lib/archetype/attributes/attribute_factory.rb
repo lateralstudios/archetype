@@ -5,7 +5,7 @@ module Archetype
 
       ATTRIBUTE_CLASSES = {
         uploader: Types::Uploader,
-        belongs_to: Types::Association
+        belongs_to: Association
       }
 
       def initialize(options, attribute=nil)
@@ -77,7 +77,7 @@ module Archetype
       end
 
       def default_class
-        options[:association] ? Types::Association : Types::Attribute
+        options[:association] ? Association : Attribute
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'archetype/attributes/attribute_set'
-require 'archetype/attributes/types/attribute'
-require 'archetype/attributes/types/association'
+require 'archetype/attributes/attribute'
+require 'archetype/attributes/association'
 require 'archetype/attributes/types/uploader'
 require 'archetype/attributes/model_factory'
 require 'archetype/attributes/attribute_factory'
