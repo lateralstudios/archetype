@@ -73,14 +73,19 @@ module Archetype
 
       def type_class
         class_name = type.to_s.classify
-        klass = [class_name, "Attributes::Types::#{class_name}"].find do |const|
-           Archetype.const_defined?(const, false)
+        klass = ["Archetype::#{class_name}", "Archetype::Attributes::Types::#{class_name}"].find do |const|
+          try_constant const
         end
-        Archetype.const_get(klass, false) if klass
+        klass.constantize if klass
       end
 
       def default_class
         options[:association] ? Association : Attribute
+      end
+
+      def try_constant(const)
+        const.constantize
+      rescue NameError
       end
     end
   end
