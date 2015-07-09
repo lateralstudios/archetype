@@ -3,10 +3,7 @@ module Archetype
     class AttributeFactory
       attr_reader :attribute, :options, :old_attribute
 
-      ATTRIBUTE_CLASSES = {
-        uploader: Types::Uploader,
-        belongs_to: Association
-      }
+      DEFAULT_CONTEXTS = [:index, :show, :new, :edit, :create, :update, :destroy]
 
       def initialize(options, attribute=nil)
         @options = options
@@ -15,7 +12,7 @@ module Archetype
       end
 
       def name
-        options[:name] || previous(:name)
+        (options[:name] || previous(:name)).to_sym
       end
       
       def type
@@ -43,6 +40,12 @@ module Archetype
         old_attribute ? old_attribute.send(attr) : nil
       end
 
+      def hidden?
+        return true if %i(id created_at updated_at).include?(name)
+        return true if type == :has_many
+        false
+      end
+
       private
 
       def build
@@ -50,9 +53,9 @@ module Archetype
       end
 
       def default_contexts
-        return [] if %i(id created_at updated_at).include?(name.to_sym)
-        contexts  = [:new, :edit, :show, :create, :update] 
-        contexts += [:index] unless type == :text
+        return [] if hidden?
+        contexts  = DEFAULT_CONTEXTS.clone
+        contexts.delete(:index) if type == :text
         contexts
       end
 
@@ -60,6 +63,7 @@ module Archetype
         return contexts unless args.any?
         filters = args.extract_options!
         return [] if args.include?(:none)
+        contexts = DEFAULT_CONTEXTS if args.delete(:all)
         contexts = args if args.any?
         contexts = (contexts - Array.wrap(filters[:except])) if filters[:except]
         contexts = (contexts + Array.wrap(filters[:on])).uniq if filters[:on]
