@@ -95,6 +95,9 @@
   </footer>
 </div><!-- ./wrapper -->
 
-<%= javascript_include_tag "archetype/application" %>
+<% Archetype.application.config.javascripts.each do |script| %>
+  <%= javascript_include_tag script %>
+<% end %>
+<%= content_for :javascripts %>
 </body>
 </html>
