@@ -42,6 +42,7 @@ module Archetype
           configs[:attributes].update_attributes(names, opts)
         end
         alias_method :attribute, :attributes
+        alias_method :association, :attributes
 
         def attribute_model(model)
           configs[:attributes].from_model(model)

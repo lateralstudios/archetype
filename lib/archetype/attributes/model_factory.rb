@@ -11,16 +11,29 @@ module Archetype
       def attributes
         @attributes ||= []
       end
+      
+      def associations
+        @associations ||= []
+      end
 
       def build
         model.columns.each do |column|
           add_column(column)
         end
+        add_associations
+      end
+
+      def add_associations
+        used = associations.map{|a| a.options[:association] }
+        (model_associations - used).each do |assoc|
+          add_association assoc
+        end
       end
 
       def add_column(column)
         name = column.name.to_sym
-        return add_association(associations[name], column) if associations[name]
+        association = find_model_association(name)
+        return add_association(association, column) if association
         return add_uploader(uploaders[name], column) if uploaders[name]
         add_attribute(column)
       end
@@ -34,14 +47,16 @@ module Archetype
         attributes << AttributeFactory.new(options).attribute
       end
 
-      def add_association(association, column)
+      def add_association(association, column=nil)
         options = {
           name: association.name,
           type: association.macro,
           column: column,
           association: association
         }
-        attributes << AttributeFactory.new(options).attribute
+        association = AttributeFactory.new(options).attribute
+        associations << association
+        attributes << association
       end
 
       def add_uploader(uploader, column)
@@ -56,11 +71,12 @@ module Archetype
 
       private
 
-      def associations
-        @associations ||= model.reflect_on_all_associations.inject({}) do |sum, assoc|
-          sum[assoc.foreign_key.to_sym] = assoc
-          sum
-        end
+      def model_associations
+        @model_associations ||= model.reflect_on_all_associations
+      end
+
+      def find_model_association(foreign_key)
+        model_associations.find{|a| a.foreign_key.to_sym == foreign_key.to_sym }
       end
 
       def uploaders
