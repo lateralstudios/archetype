@@ -6,6 +6,10 @@ module Archetype
           form.send form_method, name, input_options 
         end
 
+        def partial
+          input_options[:partial]
+        end
+
         def form_method
           input_options[:method] || :input
         end
