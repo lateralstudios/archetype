@@ -12,6 +12,10 @@ module Archetype
       build_from_delegate(delegate)
     end
     
+    def configure(&block)
+      instance_exec(&block)
+    end
+
     private
 
     def build_from_delegate(delegate)
