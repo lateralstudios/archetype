@@ -1,9 +1,10 @@
 module Archetype
   module Interface
     class Presenter
-      attr_reader :controller
+      attr_reader :controller, :config
 
-      def initialize(controller)
+      def initialize(config, controller)
+        @config = config
         @controller = controller
       end
 
@@ -29,17 +30,13 @@ module Archetype
       end
 
       def breadcrumbs
-        @breadcrumbs ||= Breadcrumb.new(configuration.crumbs)
-      end
-
-      def configuration
-        controller.configuration.interface
+        @breadcrumbs ||= Breadcrumb.new(config.crumbs)
       end
 
       protected
 
       def current_navigation
-        configuration.navigation
+        config.navigation
       end
 
       def build_title
@@ -48,7 +45,7 @@ module Archetype
 
       def build_navigation
         navigable = Archetype.controllers.map do |_, c|
-          c.configuration.interface.navigation if c.module?(:interface)
+          c.interface.navigation if c.module?(:interface)
         end.compact
       end
     end

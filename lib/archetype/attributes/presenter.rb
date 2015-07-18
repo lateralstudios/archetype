@@ -1,11 +1,11 @@
 module Archetype
   module Attributes
     class Presenter
-      attr_accessor :controller
+      attr_accessor :config, :controller
 
-      def initialize(controller, view_context)
+      def initialize(config, controller)
+        @config = config
         @controller = controller
-        @view_context = view_context
       end
 
       def for(context=nil)
@@ -23,12 +23,8 @@ module Archetype
         @attributes ||= AttributeSet.new(config.attributes)
       end
 
-      def config
-        controller.configuration.configs[:attributes]
-      end
-
       def h
-        @view_context
+        controller.view_context
       end
     end
   end

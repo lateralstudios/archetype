@@ -1,43 +1,33 @@
 module Archetype
   module Attributes
-    class AttributeFactory
-      attr_reader :attribute, :options, :old_attribute
+    class AttributeBuilder < ObjectBuilder
+      attr_reader :name
 
       DEFAULT_CONTEXTS = [:index, :show, :new, :edit, :create, :update, :destroy]
 
-      def initialize(options, attribute=nil)
-        @options = options
-        @old_attribute = attribute
-        build
+      dsl_accessor :name, :type, :label, :contexts, :collection, :input, :position, :options
+      alias_method :context, :contexts
+      alias_method :context=, :contexts=
+
+      def initialize(name, options={})
+        @name = name
+        @options = process_options(options || {})
       end
 
-      def name
-        (options[:name] || previous(:name)).to_sym
-      end
-      
-      def type
-        options[:type] || previous(:type) || :string
+      def type(value=NULL)
+        type = @type || :string
+        return type if value == NULL
+        self.type = value
       end
 
-      def options
-        options = previous(:options) || {}
-        options.merge(@options)
+      def contexts(value=NULL)
+        contexts = @contexts || default_contexts
+        return contexts if value == NULL
+        self.contexts = value
       end
 
-      def contexts
-        contexts = previous(:contexts) || default_contexts
-        context_options = options[:contexts] || options[:context]
-        filter_contexts(contexts, context_options)
-      end
-
-      def attribute_options
-        options.merge({
-          contexts: contexts
-        })
-      end
-
-      def previous(attr)
-        old_attribute ? old_attribute.send(attr) : nil
+      def contexts=(value)
+        @contexts = filter_contexts(contexts, value)
       end
 
       def hidden?
@@ -46,10 +36,36 @@ module Archetype
         false
       end
 
+      def dsl_method
+        super || name.to_sym
+      end
+
+      def attribute_options
+        options.merge({
+          label: label,
+          contexts: contexts,
+          position: position,
+          collection: collection,
+          input: input
+        }.compact)
+      end
+
+      def build(&block)
+        super
+        attribute_class.new(name, type, attribute_options)
+      end
+
       private
 
-      def build
-        @attribute = attribute_class.new(name, type, attribute_options)
+      def process_options(opts)
+        opts.inject({}) do |sum, (k, v)|
+          if respond_to?("#{k}=")
+            send("#{k}=", v)
+          else
+            sum[k] = v
+          end
+          sum
+        end
       end
 
       def default_contexts

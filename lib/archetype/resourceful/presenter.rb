@@ -1,9 +1,9 @@
 module Archetype
   module Resourceful
     class Presenter
-      attr_accessor :controller
+      attr_accessor :config, :controller
 
-      def initialize(controller)
+      def initialize(config, controller)
         @controller = controller
       end
 
@@ -14,12 +14,6 @@ module Archetype
 
       def collection
         controller.send(:collection)
-      end
-
-      private
-
-      def config
-        controller.configuration.resourceful
       end
     end
   end

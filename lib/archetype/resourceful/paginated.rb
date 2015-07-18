@@ -5,7 +5,7 @@ module Archetype
 
       included do
         has_scope :page, default: 1, only: :index
-        has_scope :per, default: configuration.resourceful.per_page, only: :index
+        has_scope :per, default: archetype.resourceful.per_page, only: :index
       end
 
       module ClassMethods

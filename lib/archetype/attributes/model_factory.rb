@@ -5,68 +5,59 @@ module Archetype
 
       def initialize(model)
         @model = model
-        build if model.table_exists?
       end
 
-      def attributes
-        @attributes ||= []
+      def builders
+        @builders ||= []
       end
       
-      def associations
-        @associations ||= []
-      end
-
       def build
         model.columns.each do |column|
           add_column(column)
         end
         add_associations
+        builders
       end
 
       def add_associations
-        used = associations.map{|a| a.options[:association] }
+        used = builders.map{|a| a.options[:association] if a.options.key?(:association) }.compact
         (model_associations - used).each do |assoc|
-          add_association assoc
+          add_association assoc.name.to_sym, assoc
         end
       end
 
       def add_column(column)
         name = column.name.to_sym
         association = find_model_association(name)
-        return add_association(association, column) if association
-        return add_uploader(uploaders[name], column) if uploaders[name]
-        add_attribute(column)
+        return add_association(association.name.to_sym, association, column) if association
+        return add_uploader(name, uploaders[name], column) if uploaders[name]
+        add_attribute(name, column)
       end
 
-      def add_attribute(column)
+      def add_attribute(name, column)
         options = {
-          name: column.name,
           type: column.type,
           column: column
         }
-        attributes << AttributeFactory.new(options).attribute
+        builders << AttributeBuilder.new(name, options)
       end
 
-      def add_association(association, column=nil)
+      def add_association(name, association, column=nil)
         options = {
-          name: association.name,
           type: association.macro,
           column: column,
           association: association
         }
-        association = AttributeFactory.new(options).attribute
-        associations << association
-        attributes << association
+        builders << AttributeBuilder.new(name, options)
       end
 
-      def add_uploader(uploader, column)
+      def add_uploader(name, uploader, column)
         options = {
-          name: column.name,
           type: :uploader,
           column: column,
           uploader: uploader
         }
-        attributes << AttributeFactory.new(options).attribute
+        builders << AttributeBuilder.new(name, options)
       end
 
       private

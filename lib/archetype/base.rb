@@ -10,7 +10,7 @@ module Archetype
 
       include Archetype::Interface
 
-      delegate :archetype_name, to: :class
+      delegate :archetype_name, :archetype_controller, to: :class
       delegate :configuration, to: :class
       helper_method :archetype_user
       before_filter :authenticate_archetype!

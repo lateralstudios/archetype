@@ -27,7 +27,6 @@ module Archetype
       def with_context(context)
         find_all{|a| a.contexts.include?(context) }
       end
-
     end
   end
 end

@@ -1,32 +1,28 @@
-require 'archetype/interface/configuration'
-require 'archetype/interface/presenter'
 require 'archetype/interface/navigable'
 require 'archetype/interface/navigation'
 require 'archetype/interface/breadcrumb'
 require 'archetype/interface/crumb'
+require 'archetype/interface/configuration'
+require 'archetype/interface/controller'
+require 'archetype/interface/builder'
+require 'archetype/interface/presenter'
 
 module Archetype
   module Interface
     extend ActiveSupport::Concern
 
-    class << self
-      def config_for(controller)
-        Configuration.new(controller)
-      end
-    end
-
     included do
       layout 'archetype/application'
       helper_method :interface
 
-      archetype.module(:interface, Interface)
-      archetype.config do
+      archetype.module(:interface, Interface::Controller)
+      archetype.interface do |controller|
         crumb controller.archetype_name
       end
     end
 
     def interface
-      @interface ||= Presenter.new(self) 
+      @interface ||= Presenter.new(archetype_controller.interface, self) 
     end
   end
 end

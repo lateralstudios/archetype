@@ -1,11 +1,14 @@
+require 'archetype/interface'
+
 module Archetype
   module Dashboard
     extend ActiveSupport::Concern
 
     included do
-      archetype.module(:dashboard, Dashboard)
+      include Archetype::Interface
+      # archetype.module(:dashboard, Dashboard)
 
-      archetype.config do
+      archetype.interface do
         navigable :dashboard, ->{ :root }, icon: 'home', position: 0
       end
     end

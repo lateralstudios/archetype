@@ -1,9 +1,10 @@
+require 'archetype/attributes/presenter'
 require 'archetype/attributes/attribute_set'
 require 'archetype/attributes/attribute'
 require 'archetype/attributes/association'
 require 'archetype/attributes/types/uploader'
 require 'archetype/attributes/model_factory'
-require 'archetype/attributes/attribute_factory'
+require 'archetype/attributes/attribute_builder'
 require 'archetype/attributes/presenters/attribute_presenter'
 require 'archetype/attributes/presenters/uploader_presenter'
 require 'archetype/attributes/presenters/association_presenter'
@@ -11,26 +12,20 @@ require 'archetype/attributes/simple_form/input'
 require 'archetype/attributes/simple_form/uploader'
 require 'archetype/attributes/simple_form/association'
 require 'archetype/attributes/configuration'
-require 'archetype/attributes/presenter'
+require 'archetype/attributes/controller'
+require 'archetype/attributes/builder'
 
 module Archetype
   module Attributes
     extend ActiveSupport::Concern
 
-    #TODO: perfect example of duplicated module config
-    class << self
-      def config_for(controller)
-        Configuration.new(controller)
-      end
-    end
-
     included do
       helper_method :attributes
-      archetype.module(:attributes, Attributes)
+      archetype.module(:attributes, Attributes::Controller)
     end
 
     def attributes
-      @attributes ||= Presenter.new(self, view_context)
+      @attributes ||= Presenter.new(archetype_controller.attributes, self)
     end
 
     module ClassMethods
