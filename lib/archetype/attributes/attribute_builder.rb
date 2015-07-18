@@ -50,7 +50,7 @@ module Archetype
         }.compact)
       end
 
-      def build(&block)
+      def build(delegate)
         super
         attribute_class.new(name, type, attribute_options)
       end

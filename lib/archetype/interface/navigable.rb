@@ -40,7 +40,7 @@ module Archetype
           }.compact
         end
 
-        def build(&block)
+        def build(delegate)
           super
           Navigable.new(name, path, options)
         end

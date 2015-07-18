@@ -8,8 +8,14 @@ module Archetype
       alias_method :dsl_method, :as
     end
 
-    def build(&block)
-      yield(self)
+    def build(delegate)
+      build_from_delegate(delegate)
+    end
+    
+    private
+
+    def build_from_delegate(delegate)
+      delegate.send(dsl_method, self) if delegate.respond_to?(dsl_method)
     end
 
     module ClassMethods

@@ -18,20 +18,13 @@ module Archetype
     end
 
     def build_builder(key, builder, &block)
-      object = builder.build do |builder|
-        build_method(builder, builder.dsl_method)
-      end
+      object = builder.build(self)
       return yield(object) if block_given?
       configuration.send("#{key}=", object)
     end
 
     def configuration
       @configuration ||= Configuration.new
-    end
-
-    def build_method(builder, method)
-      return unless respond_to?(method)
-      send(method, builder)
     end
 
     def method_missing(m, *args, &block)

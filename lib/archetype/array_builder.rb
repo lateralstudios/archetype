@@ -8,10 +8,10 @@ module Archetype
       @array = array
     end
 
-    def build(&block)
+    def build(delegate)
       return [] unless any?
       collect do |object|
-        object = object.build(&block) if object.respond_to?(:build)
+        object = object.build(delegate) if object.respond_to?(:build)
         object
       end
     end

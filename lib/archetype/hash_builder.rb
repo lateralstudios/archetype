@@ -8,10 +8,10 @@ module Archetype
       @hash = hash
     end
 
-    def build(&block)
+    def build(delegate)
       return {} unless any?
       inject({}) do |sum, (key, object)|
-        object = object.build(&block) if object.respond_to?(:build)
+        object = object.build(delegate) if object.respond_to?(:build)
         sum[key] = object
         sum
       end

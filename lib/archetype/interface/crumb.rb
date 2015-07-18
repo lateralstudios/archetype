@@ -31,7 +31,7 @@ module Archetype
           }.compact
         end
 
-        def build
+        def build(delegate)
           super
           Crumb.new(name, path, options)
         end
