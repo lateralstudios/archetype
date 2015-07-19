@@ -16,6 +16,11 @@ module Archetype
       instance_exec(&block)
     end
 
+    def from_hash(h)
+      h.each { |k, v| send(k, v) }
+      self
+    end
+
     private
 
     def build_from_delegate(delegate)

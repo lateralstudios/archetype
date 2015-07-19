@@ -2,6 +2,7 @@ module Archetype
   module Attributes
     class Presenter
       attr_accessor :config, :controller
+      delegate :[], to: :attributes
 
       def initialize(config, controller)
         @config = config
@@ -9,7 +10,7 @@ module Archetype
       end
 
       def for(context=nil)
-        attributes.for(context).map{|a| a.presenter_class.new(a, h) }
+        attributes.for(context)
       end
       alias_method :all, :for
 
@@ -20,7 +21,7 @@ module Archetype
       private
 
       def attributes
-        @attributes ||= AttributeSet.new(config.attributes)
+        @attributes ||= AttributeSet.new(config.attributes.map{|a| a.presenter_class.new(a, h) })
       end
 
       def h

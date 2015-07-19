@@ -48,7 +48,7 @@ module Archetype
           column: column,
           association: association
         }
-        builders << AttributeBuilder.new(name, options)
+        builders << AssociationBuilder.new(name, options)
       end
 
       def add_uploader(name, uploader, column)

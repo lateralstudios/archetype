@@ -6,7 +6,7 @@ module Archetype
       end
 
       def [](name)
-        find(name).first
+        find{|a| a.name == name }
       end
 
       def only(*names)

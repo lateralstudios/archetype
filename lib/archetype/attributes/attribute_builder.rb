@@ -100,7 +100,7 @@ module Archetype
       end
 
       def default_class
-        options[:association] ? Association : Attribute
+        Attribute
       end
 
       def try_constant(const)

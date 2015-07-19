@@ -7,6 +7,10 @@ module Archetype
           super.map{|o| name_from(o) }
         end
 
+        def nested
+          @nested ||= AttributeSet.new(super.map{|_, a| a.presenter_class.new(a, h) })
+        end
+
         def field
           SimpleForm::Association.new(self)
         end

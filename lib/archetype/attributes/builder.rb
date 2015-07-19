@@ -22,14 +22,21 @@ module Archetype
       class << self
         def attributes(*args)
           opts = args.extract_options!
-          names = args.delete(:all) ? builders.map(&:name) : args
+          names = args.delete(:all) ? attribute_builders.keys : args
           names.each do |name|
             builder = attribute_builders[name] || AttributeBuilder.new(name)
             attribute_builders[name] = builder.from_hash(opts)
           end
         end
         alias_method :attribute, :attributes
-        alias_method :association, :attributes
+
+        def association(*args)
+          opts = args.extract_options!
+          args.each do |name|
+            builder = attribute_builders[name] || AssociationBuilder.new(name)
+            attribute_builders[name] = builder.from_hash(opts)
+          end
+        end
 
         def attribute_model(model)
           builders = ModelFactory.new(model).build
