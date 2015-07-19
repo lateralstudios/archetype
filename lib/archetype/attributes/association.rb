@@ -19,15 +19,9 @@ module Archetype
         nested.any?
       end
 
-      def many?
-        %i(has_many has_many_or_belongs_to).include?(type)
-      end
-
       def param
         return nested_params if nested?
-        name = column.try(:name) || super
-        return name.to_s.foreign_key.to_sym if type == :belongs_to
-        name
+        column.try(:name) || super
       end
 
       private

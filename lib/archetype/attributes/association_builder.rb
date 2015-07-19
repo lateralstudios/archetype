@@ -16,6 +16,12 @@ module Archetype
         attribute
       end
 
+      def type_class
+        return klass = super if klass
+        return Types::HasMany if %i(has_many_or_belongs_to).include?(type)
+        return Types::HasOne if %i(belongs_to).include?(type)
+      end
+
       def default_class
         Association
       end

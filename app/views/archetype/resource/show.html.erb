@@ -11,7 +11,7 @@
           <dl class="dl-horizontal">
             <% attributes.for(:show).each do |attribute| %>
               <dt><%= attribute.label %></dt>
-              <dd><%= attribute.from(resourceful.resource) %></dd>
+              <dd><%= attribute.long_format(resourceful.resource) %></dd>
             <% end %>
           </dl>
         </div><!-- /.box-body -->
