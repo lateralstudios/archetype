@@ -12,5 +12,4 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-sprockets
-//= require archetype/adminlte/app.min
+//= require archetype/interface

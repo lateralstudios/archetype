@@ -6,27 +6,38 @@ module Archetype
           form.send form_method, name, input_options 
         end
 
+        def as
+          user_options[:as]
+        end
+
         def partial
-          input_options[:partial]
+          user_options[:partial]
         end
 
         def form_method
-          input_options[:method] || :input
+          user_options[:method] || :input
         end
 
         def collection
           options[:collection]
         end
 
-        def options
-          {input: {}}.merge(super)
+        def user_options
+          options[:input] ||= {}
         end
 
         def input_options
           {
+            as: as,
             collection: collection,
-            label: label
-          }.compact.merge(options[:input])
+            label: label,
+            input_html: input_html_options(user_options.delete(:html) || user_options.delete(:input_html)),
+          }.compact.merge(user_options)
+        end
+
+        def input_html_options(options={})
+          {
+          }.merge(options || {})
         end
       end
     end

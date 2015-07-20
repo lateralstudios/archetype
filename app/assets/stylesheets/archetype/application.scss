@@ -10,8 +10,6 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require archetype/bootstrap-import
- *= require archetype/adminlte/AdminLTE.min
- *= require archetype/adminlte/skins/skin-blue.min
+ *= require archetype/interface
  *= require_self
  */

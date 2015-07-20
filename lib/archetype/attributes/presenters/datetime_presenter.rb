@@ -3,7 +3,7 @@ module Archetype
     module Presenters
       class DatetimePresenter < AttributePresenter
         def short_format(object)
-          format(object, '%e %B %Y %H:%M')
+          format(object, '%d %B %Y %H:%M')
         end
 
         def long_format(object)
@@ -16,6 +16,10 @@ module Archetype
           return unless value = from(object)
           format = yield(value) if block_given?
           value.strftime(format)
+        end
+
+        def field
+          SimpleForm::Datetime.new(self)
         end
       end
     end

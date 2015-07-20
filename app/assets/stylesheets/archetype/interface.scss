@@ -1,0 +1,11 @@
+/*
+ *= require archetype/bootstrap-import
+ *= require archetype/adminlte/AdminLTE.min
+ *= require archetype/adminlte/skins/skin-blue.min
+ *= require archetype/bootstrap-datetimepicker.min
+ *= require_self
+ */
+
+.bootstrap-datetimepicker-widget > ul{
+  padding:0;
+}
