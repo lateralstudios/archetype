@@ -6,6 +6,10 @@ module Archetype
           false
         end
 
+        def polymorphic?
+          options[:polymorphic]
+        end
+
         def param
           return nested_params if nested?
           name = super
@@ -16,6 +20,11 @@ module Archetype
 
         def default_presenter
           Presenters::HasOnePresenter
+        end
+
+        def self.for_type?(type)
+          return true if type == :belongs_to
+          super
         end
       end
     end

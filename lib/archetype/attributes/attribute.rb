@@ -35,20 +35,15 @@ module Archetype
       private
 
       def type_presenter
-        class_name = "#{type.to_s.classify}Presenter"
-        klass = ["Archetype::#{class_name}", "Archetype::Attributes::Presenters::#{class_name}"].find do |const|
-          try_constant const
-        end
-        klass.constantize if klass
+        default_presenter.descendants.find{|c| c.name.demodulize == "#{type.to_s.classify}Presenter" }
       end
 
       def default_presenter
         Presenters::AttributePresenter
       end
 
-      def try_constant(const)
-        const.constantize
-      rescue NameError
+      def self.for_type?(type)
+        name.demodulize == type.to_s.classify
       end
     end
   end

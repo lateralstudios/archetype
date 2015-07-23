@@ -1,8 +1,6 @@
 module Archetype
   module Attributes
     class AttributeBuilder < ObjectBuilder
-      attr_reader :name
-
       DEFAULT_CONTEXTS = [:index, :show, :new, :edit, :create, :update, :destroy]
 
       dsl_accessor :name, :type, :label, :contexts, :collection, :input, :position, :options
@@ -32,7 +30,6 @@ module Archetype
 
       def hidden?
         return true if %i(id created_at updated_at).include?(name)
-        return true if type == :has_many
         false
       end
 
@@ -92,20 +89,11 @@ module Archetype
       end
 
       def type_class
-        class_name = type.to_s.classify
-        klass = ["Archetype::#{class_name}", "Archetype::Attributes::Types::#{class_name}"].find do |const|
-          try_constant const
-        end
-        klass.constantize if klass
+        default_class.descendants.find{|c| c.for_type?(type) }
       end
 
       def default_class
         Attribute
-      end
-
-      def try_constant(const)
-        const.constantize
-      rescue NameError
       end
     end
   end

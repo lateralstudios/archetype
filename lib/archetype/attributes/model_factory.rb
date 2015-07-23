@@ -12,14 +12,21 @@ module Archetype
       end
       
       def build
-        model.columns.each do |column|
-          add_column(column)
-        end
-        add_associations
+        return builders unless model.table_exists?
+        build_attributes
+        build_associations
         builders
       end
 
-      def add_associations
+      def build_attributes
+        model.columns.each do |column|
+          polymorphic_name = column.name.gsub('_type', '') if column.name.include?('_type')
+          next if polymorphic_name && model.columns.any?{|c| c.name == "#{polymorphic_name}_id" }
+          add_column(column)
+        end
+      end
+
+      def build_associations
         used = builders.map{|a| a.options[:association] if a.options.key?(:association) }.compact
         (model_associations - used).each do |assoc|
           add_association assoc.name.to_sym, assoc
@@ -46,7 +53,8 @@ module Archetype
         options = {
           type: association.macro,
           column: column,
-          association: association
+          association: association,
+          polymorphic: association.options[:polymorphic]
         }
         builders << AssociationBuilder.new(name, options)
       end
