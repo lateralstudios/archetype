@@ -2,17 +2,17 @@ module Archetype
   module Attributes
     module SimpleForm
       class Datetime < Input
-        def input_for(form)
-          form.input name, input_options do 
+        def input_for(form, opts={})
+          form.input name, opts.deep_merge(input_options) do 
             datetime_for(form)
           end
         end
 
         def datetime_for(form)
           h = form.template
-          h.concat form.input_field(name, input_html_options({as: :hidden}))
+          h.concat form.input_field(name, as: :hidden)
           h.concat(h.content_tag(:div, class: 'datetimepicker input-group datetime') do
-            h.concat h.text_field_tag('', field_format(from(form.object)), {class: 'form-control', data: {format: 'dd/MM/yyyy hh:mm:ss'}})
+            h.concat h.text_field_tag('', field_format(attribute.from(object)), {class: 'form-control', data: {format: 'dd/MM/yyyy hh:mm:ss'}})
             h.concat(h.content_tag(:span, class: 'add-on input-group-addon') do
               h.content_tag(:i, '', class: 'fa fa-calendar', data: {time_icon: 'fa fa-clock-o', date_icon: 'fa fa-calendar'})
             end)

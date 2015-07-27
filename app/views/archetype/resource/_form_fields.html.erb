@@ -1,7 +1,7 @@
-<% attributes.fields(action_name.to_sym).each do |attribute| %>
-  <% if attribute.partial %>
-    <%= render attribute.partial, f: f %>
+<% attributes.fields(action_name.to_sym, f, resourceful.resource).each do |field| %>
+  <% if field.partial %>
+    <%= render field.partial, f: f %>
   <% else %>
-    <%= attribute.input_for(f) %>
+    <%= field.input %>
   <% end %>
 <% end %>

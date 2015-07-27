@@ -10,8 +10,8 @@ module Archetype
           end
         end
 
-        def field
-          SimpleForm::Uploader.new(self)
+        def field(form, object=nil)
+          SimpleForm::Uploader.new(self, form, object)
         end
 
         def thumb_from(object)

@@ -14,8 +14,9 @@ module Archetype
       end
       alias_method :all, :for
 
-      def fields(context=nil)
-        self.for(context).map(&:field)
+      def fields(context, form, object)
+        attributes = self.for(context)
+        attributes.map{|a| a.field(form, object) }
       end
 
       private

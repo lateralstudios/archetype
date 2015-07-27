@@ -2,16 +2,16 @@ module Archetype
   module Attributes
     module SimpleForm
       class Association < Input
-        def input_for(form)
-          return nested_input_for(form) if nested?
-          form.send form_method, name, input_options 
+        def input(opts={})
+          return nested_input_for(opts) if attribute.nested?
+          super
         end
 
-        def nested_input_for(form)
+        def nested_input_for(opts)
           h = form.template
           h.content_tag(:div, class: 'well') do
-            nested_objects(form).each do |object|
-              h.concat nested_fields(form, object)
+            nested_objects.each do |nested|
+              h.concat nested_fields(nested, opts)
             end
             h.concat(h.content_tag(:p) do
               form.link_to_add "Add a package", name
@@ -19,23 +19,23 @@ module Archetype
           end
         end
 
-        def nested_fields(form, object)
+        def nested_fields(object, opts={})
           form.fields_for(name, object) do |nested_form|
             form.template.concat nested_form.input(:id, as: :hidden)
-            nested.each do |attribute|
-              form.template.concat attribute.field.input_for(nested_form)
+            attribute.nested.each do |attribute|
+              form.template.concat attribute.field(nested_form, object).input(opts)
             end
             form.template.concat(nested_form.link_to_remove('Remove this package'))
           end
         end
 
-        def nested_objects(form)
-          existing = form.object.send(name)
+        def nested_objects
+          existing = object.send(name)
           existing.any? ? existing : [existing.new]
         end
 
         def form_method
-          input_options[:method] || :association
+          options[:method] || :association
         end
       end
     end

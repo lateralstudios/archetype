@@ -19,9 +19,11 @@ module Archetype
           options[:label] || name.to_s.humanize
         end
 
-        def field
-          SimpleForm::Input.new(self)
+        def field(form, object=nil)
+          SimpleForm::Input.new(self, form, object)
         end
+
+        private
 
         def h
           @view_context

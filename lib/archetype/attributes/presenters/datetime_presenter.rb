@@ -18,8 +18,8 @@ module Archetype
           value.strftime(format)
         end
 
-        def field
-          SimpleForm::Datetime.new(self)
+        def field(form, object=nil)
+          SimpleForm::Datetime.new(self, form, object)
         end
       end
     end
