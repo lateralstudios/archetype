@@ -30,7 +30,7 @@ module Archetype
 
         def collection
           collection = options.delete(:collection) || attribute_options[:collection] || return
-          collection.respond_to?(:call) ? collection.call(object) : collection
+          collection.respond_to?(:call) ? collection.call(h, object) : collection
         end
 
         def attribute_options
@@ -53,6 +53,10 @@ module Archetype
 
         def html_options
           {}
+        end
+
+        def h
+          form.template
         end
       end
     end

@@ -2,7 +2,7 @@ module Archetype
   module Attributes
     module SimpleForm
       class Datetime < Input
-        def input_for(form, opts={})
+        def input(opts={})
           form.input name, opts.deep_merge(input_options) do 
             datetime_for(form)
           end

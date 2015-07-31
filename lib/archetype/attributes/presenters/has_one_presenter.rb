@@ -13,6 +13,10 @@ module Archetype
         def many?
           true
         end
+
+        def field(form, object=nil)
+          SimpleForm::HasOne.new(self, form, object)
+        end
       end
     end
   end
