@@ -18,6 +18,10 @@ module Archetype
         self.class.new(with_context(context))
       end
 
+      def any_context
+        self.class.new(find_all{|a| a.contexts.any? })
+      end
+
       private
 
       def with_names(names)

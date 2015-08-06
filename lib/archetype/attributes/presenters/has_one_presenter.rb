@@ -10,10 +10,6 @@ module Archetype
           short_format(object)
         end
 
-        def many?
-          true
-        end
-
         def field(form, object=nil)
           SimpleForm::HasOne.new(self, form, object)
         end

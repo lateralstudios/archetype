@@ -31,7 +31,14 @@ module Archetype
 
         def nested_objects
           existing = object.send(name)
-          existing.any? ? existing : [existing.new]
+          return existing if attribute.many? && existing.any?
+          if attribute.many?
+            [existing.new]
+          elsif existing
+            [existing]
+          else
+            [object.send("build_#{name}")]
+          end
         end
 
         def form_method

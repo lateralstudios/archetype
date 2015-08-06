@@ -29,6 +29,13 @@ module Archetype
           self[name] = builder.from_hash(opts)
         end
       end
+
+      def attribute_model(model)
+        builders = ModelFactory.new(model).build
+        builders.each do |builder|
+          self[builder.name] = builder
+        end
+      end
     end
   end
 end

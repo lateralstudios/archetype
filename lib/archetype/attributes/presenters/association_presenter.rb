@@ -3,7 +3,7 @@ module Archetype
     module Presenters
       class AssociationPresenter < AttributePresenter
         def nested
-          @nested ||= AttributeSet.new(super.map{|_, a| a.presenter_class.new(a, h) })
+          @nested ||= AttributeSet.new(super.map{|_, a| a.presenter_class.new(a, h) }).any_context
         end
 
         def field(form, object=nil)

@@ -24,7 +24,7 @@ module Archetype
       end
 
       def hidden?
-        return true if type == :has_many || polymorphic
+        return true if type == :has_many || type == :has_one || polymorphic
         super
       end
 
