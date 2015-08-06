@@ -22,7 +22,8 @@ module Archetype
       class << self
         def attributes(*args)
           opts = args.extract_options!
-          names = args.delete(:all) ? attribute_builders.keys : args
+          names = args.delete(:all) ? attribute_builders.keys : args.map(&:to_sym)
+          names.reverse! if opts[:position]
           names.each do |name|
             builder = attribute_builders[name] || AttributeBuilder.new(name)
             attribute_builders[name] = builder.from_hash(opts)
@@ -32,6 +33,7 @@ module Archetype
 
         def association(*args)
           opts = args.extract_options!
+          args.reverse! if opts[:position]
           args.each do |name|
             builder = attribute_builders[name] || AssociationBuilder.new(name)
             attribute_builders[name] = builder.from_hash(opts)
