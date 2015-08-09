@@ -36,7 +36,7 @@ module Archetype
       end
 
       def resource
-        get_resource_ivar || set_resource_ivar(end_of_association_chain.send(method_for_find, params[:id]))
+        get_resource_ivar || set_resource_ivar(end_of_association_chain.send(method_for_find, params[id_param]))
       end
 
       def build_resource
@@ -71,6 +71,10 @@ module Archetype
 
       def method_for_find
         :find
+      end
+
+      def id_param
+        :id
       end
 
       def get_resource_ivar 

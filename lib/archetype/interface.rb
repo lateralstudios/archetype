@@ -5,6 +5,7 @@ require 'archetype/interface/crumb'
 require 'archetype/interface/configuration'
 require 'archetype/interface/controller'
 require 'archetype/interface/builder'
+require 'archetype/interface/controller_presenter'
 require 'archetype/interface/presenter'
 
 module Archetype

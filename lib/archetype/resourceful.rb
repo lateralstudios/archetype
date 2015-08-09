@@ -41,7 +41,7 @@ module Archetype
 
     module ClassMethods
       def local_prefixes
-        super.push('archetype/resource')
+        super.insert(-2, 'archetype/resource')
       end
     end
   end
