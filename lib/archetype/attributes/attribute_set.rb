@@ -13,13 +13,16 @@ module Archetype
         self.class.new(with_names(names.flatten))
       end
 
-      def for(context=nil)
-        return self unless context.present?
+      def for(context)
         self.class.new(with_context(context))
       end
 
       def any_context
         self.class.new(find_all{|a| a.contexts.any? })
+      end
+
+      def for_fieldset(name)
+        self.class.new(find_all{|a| a.fieldset == name })
       end
 
       private

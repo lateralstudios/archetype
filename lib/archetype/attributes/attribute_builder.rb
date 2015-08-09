@@ -3,14 +3,9 @@ module Archetype
     class AttributeBuilder < ObjectBuilder
       DEFAULT_CONTEXTS = [:index, :show, :new, :edit, :create, :update, :destroy]
 
-      dsl_accessor :name, :type, :label, :contexts, :collection, :input, :position, :options
+      dsl_accessor :type, :fieldset, :label, :contexts, :collection, :input, :position
       alias_method :context, :contexts
       alias_method :context=, :contexts=
-
-      def initialize(name, options={})
-        @name = name
-        @options = process_options(options || {})
-      end
 
       def type(value=NULL)
         type = @type || :string
@@ -33,12 +28,9 @@ module Archetype
         false
       end
 
-      def dsl_method
-        super || name.to_sym
-      end
-
       def attribute_options
         options.merge({
+          fieldset: fieldset,
           label: label,
           contexts: contexts,
           position: position,
@@ -53,17 +45,6 @@ module Archetype
       end
 
       private
-
-      def process_options(opts)
-        opts.inject({}) do |sum, (k, v)|
-          if respond_to?("#{k}=")
-            send("#{k}=", v)
-          else
-            sum[k] = v
-          end
-          sum
-        end
-      end
 
       def default_contexts
         return [] if hidden?

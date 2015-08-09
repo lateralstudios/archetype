@@ -1,0 +1,8 @@
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title"><%= fieldset.label %></h3>
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <%= render partial: 'field', collection: fieldset.fields(context, f, f.object), locals: {f: f} %>
+  </div><!-- /.box-body -->
+</div><!-- /.box -->

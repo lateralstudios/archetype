@@ -3,13 +3,7 @@
 <section class="content">
   <div class="row">
     <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title"><small>New</small> <%= interface.name_for(resourceful.resource) %></h3>
-        </div><!-- /.box-header -->
-        <%= render 'form' %>
-      </div><!-- /.box -->
-
+      <%= render 'form', context: :new %>
     </div><!-- /.col -->
   </div><!-- /.row -->
 </section><!-- /.content -->

@@ -1,11 +1,11 @@
 module Archetype
   module Interface
-    class Presenter
-      attr_reader :controller, :config
+    class Presenter < ControllerPresenter
+      attr_reader :config
 
       def initialize(config, controller)
         @config = config
-        @controller = controller
+        super(controller)
       end
 
       def site_name
@@ -14,15 +14,6 @@ module Archetype
 
       def meta_title
         [title, Array.wrap(site_name).join(' ')].join(' | ')
-      end
-
-      def title
-        @title ||= build_title
-      end
-
-      def name_for(object)
-        key = %i(name title label).find{|k| object.respond_to?(k) && object.send(k).present? }
-        key ? object.send(key) : object.class.to_s.demodulize.underscore.humanize
       end
 
       def navigation
@@ -37,10 +28,6 @@ module Archetype
 
       def current_navigation
         config.navigation
-      end
-
-      def build_title
-        controller.archetype_name.to_s.humanize
       end
 
       def build_navigation

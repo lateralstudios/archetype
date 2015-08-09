@@ -10,6 +10,10 @@ module Archetype
         @options = options || {}
       end
 
+      def fieldset
+        options[:fieldset] || :default
+      end
+
       def column
         options[:column]
       end
