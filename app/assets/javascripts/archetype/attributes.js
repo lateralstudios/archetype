@@ -6,6 +6,26 @@ $(document).ready(function(){
   $(document).on('change', '.polymorphic-select select.polymorphic', function(e){
     update_polymorphic_select($(this).closest('.polymorphic-select'));
   });
+
+  $('.datetimepicker').each(function(index, item){
+    var $item = $(item),
+        $hidden = $item.prev('input[type=\'hidden\']');
+    $item.datetimepicker({});
+    $item.on('changeDate', function(e){
+      $hidden.val(moment.utc(e.date).format("YYYY-MM-DD HH:mm:ss UTC"));
+    });
+  });
+
+  $('.timepicker').each(function(index, item){
+    var $item = $(item),
+        $hidden = $item.prev('input[type=\'hidden\']');
+    $item.datetimepicker({
+      pickDate: false
+    });
+    $item.on('changeDate', function(e){
+      $hidden.val(moment.utc(e.date).format("HH:mm:ss UTC"));
+    });
+  });
 });
 
 function update_polymorphic_select(wrapper){
