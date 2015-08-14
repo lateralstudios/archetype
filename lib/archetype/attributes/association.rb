@@ -27,13 +27,13 @@ module Archetype
 
       def param
         return nested_params if nested?
-        column.try(:name) || super
+        super
       end
 
       private
 
       def nested_params
-        param_name = "#{name.to_s.pluralize}_attributes".to_sym
+        param_name = "#{name.to_s}_attributes".to_sym
         params = {}
         params[param_name] = [:id, :_destroy] + nested.map{|_,v| v.param }
         params
