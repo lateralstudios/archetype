@@ -14,7 +14,7 @@ module Archetype
           h.concat(h.content_tag(:div, class: 'timepicker input-group time') do
             h.concat h.text_field_tag('', field_format(attribute.from(object)), {class: 'form-control', data: {format: 'hh:mm:ss'}})
             h.concat(h.content_tag(:span, class: 'add-on input-group-addon') do
-              h.content_tag(:i, '', class: 'fa fa-calendar', data: {time_icon: 'fa fa-clock-o', date_icon: 'fa fa-calendar'})
+              h.content_tag(:i, '', class: 'fa fa-clock-o', data: {time_icon: 'fa fa-clock-o', date_icon: 'fa fa-calendar'})
             end)
           end)
         end
