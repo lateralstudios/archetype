@@ -21,7 +21,8 @@ module Archetype
 
     included do
       include Archetype::Attributes
-      archetype.module(:resourceful, Resourceful::Controller)
+
+      archetype.module Resourceful::Controller
 
       include Base
       include Actions
@@ -30,7 +31,12 @@ module Archetype
 
       helper_method :resourceful
 
-      archetype.attributes do |controller|
+      archetype.defaults(:resourceful) do |controller|
+        actions *RESOURCEFUL_ACTIONS.clone
+        per_page 25
+      end
+
+      archetype.defaults(:attributes) do |controller|
         attribute_model controller.resource_class
       end
     end

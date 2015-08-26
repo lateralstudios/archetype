@@ -21,10 +21,6 @@ module Archetype
         self.class.new(find_all{|a| a.contexts.any? })
       end
 
-      def for_fieldset(name)
-        self.class.new(find_all{|a| a.fieldset == name })
-      end
-
       private
 
       def with_names(names)

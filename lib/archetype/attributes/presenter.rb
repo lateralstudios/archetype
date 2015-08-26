@@ -31,7 +31,7 @@ module Archetype
 
       def fieldset_presenters
         @fieldset_presenters ||= config.fieldsets.map do |fieldset|
-          attrs = attributes.for_fieldset(fieldset.name)
+          attrs = attributes.only(fieldset.attributes)
           Presenters::FieldsetPresenter.new(fieldset, attrs)
         end
       end

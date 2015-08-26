@@ -43,29 +43,32 @@ module Archetype
 
       def add_attribute(name, column)
         options = {
+          name: name,
           type: column.type,
           column: column
         }
-        builders << AttributeBuilder.new(name, options)
+        builders << AttributeBuilder.new(options)
       end
 
       def add_association(name, association, column=nil)
         options = {
+          name: name,
           type: association.macro,
           column: column,
           association: association,
           polymorphic: association.options[:polymorphic]
         }
-        builders << AssociationBuilder.new(name, options)
+        builders << AssociationBuilder.new(options)
       end
 
       def add_uploader(name, uploader, column)
         options = {
+          name: name,
           type: :uploader,
           column: column,
           uploader: uploader
         }
-        builders << AttributeBuilder.new(name, options)
+        builders << AttributeBuilder.new(options)
       end
 
       private

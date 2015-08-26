@@ -96,7 +96,6 @@ module Archetype
       def apply_scopes_if_available(target_object) 
         respond_to?(:apply_scopes, true) ? apply_scopes(target_object) : target_object
       end
-
     end
   end
 end

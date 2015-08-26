@@ -36,7 +36,7 @@ module Archetype
 
     included do
       helper_method :attributes
-      archetype.module(:attributes, Attributes::Controller)
+      archetype.module Attributes::Controller
     end
 
     def attributes

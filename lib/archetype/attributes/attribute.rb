@@ -10,8 +10,8 @@ module Archetype
         @options = options || {}
       end
 
-      def fieldset
-        options[:fieldset] || :default
+      def label
+        options[:label] || name.to_s.humanize
       end
 
       def column

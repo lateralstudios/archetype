@@ -3,6 +3,9 @@ module Archetype
     class Builder
       include Archetype::ModuleBuilder
 
+      builds :actions, with: ArrayBuilder
+      builds :per_page, with: ObjectBuilder
+
       def build_actions
         super do |actions|
           (self.class.default_actions - actions).each do |a|
@@ -27,19 +30,19 @@ module Archetype
 
       def undefine_action(action)
         controller.class_eval do
-          undef_method(action, "#{action}!")
+          undef_method(action) if method_defined?(action)
+          undef_method("#{action}!") if method_defined?("#{action}!")
         end
       end
 
       class << self
         def actions(*args)
-          builders[:actions] ||= ArrayBuilder.new
           actions = process_action_args(args, builders[:actions].to_a.dup)
           builders[:actions] = ArrayBuilder.new(actions)
         end
 
         def per_page(per)
-          builders[:per_page] ||= ObjectBuilder.new(per)
+          builders[:per_page].object = per
         end
 
         # ActionsBuilder class..

@@ -15,10 +15,6 @@ module Archetype
           from(object)
         end
 
-        def label
-          options[:label] || name.to_s.humanize
-        end
-
         def field(form, object=nil)
           SimpleForm::Input.new(self, form, object)
         end

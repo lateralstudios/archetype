@@ -3,19 +3,45 @@ module Archetype
     class Builder
       include Archetype::ModuleBuilder
 
-      def initialize(controller)
-        # TODO We need to initialize the builders for the dynamic build
-        # Protocol needed
-        class_builders[:attributes] ||= HashBuilder.new
-        class_builders[:fieldsets] ||= HashBuilder.new
-        self.class.fieldset(:default, label: 'General', position: 0)
-        super
+      builds :attributes, :fieldsets, with: HashBuilder
+
+      class << self
+        def fieldset(name, opts={})
+          name = name.to_sym
+          fieldset = builders[:fieldsets].fetch(name){ FieldsetBuilder.new }
+          fieldset.from_hash(opts.merge({name: name}))
+          builders[:fieldsets][name] = fieldset
+        end
+
+        def attributes(*args)
+          opts = args.extract_options!
+          names = args.delete(:all) ? builders[:attributes].keys : args.map(&:to_sym)
+          names.reverse! if opts[:position]
+          names.each do |name|
+            builder = builders[:attributes].fetch(name){ AttributeBuilder.new }
+            builders[:attributes][name] = builder.from_hash(opts.merge(name: name))
+          end
+        end
+        alias_method :attribute, :attributes
+
+        def association(*args)
+          opts = args.extract_options!
+          args.reverse! if opts[:position]
+          args.each do |name|
+            builder = builders[:attributes].fetch(name){ AssociationBuilder.new }
+            builders[:attributes][name] = builder.from_hash(opts.merge(name: name))
+          end
+        end
+
+        def attribute_model(model)
+          attr_builders = ModelFactory.new(model).build
+          attr_builders.each do |builder|
+            builders[:attributes][builder.name] = builder
+          end
+        end
       end
 
-      def build
-        build_fieldsets
-        build_attributes
-      end
+      fieldset :default, label: 'General', position: 0
 
       def build_fieldsets
         super do |fieldsets|
@@ -31,13 +57,13 @@ module Archetype
 
       def build_attributes
         super do |attributes|
-          add_missing_fieldsets(attributes.map{|_, a| a.fieldset }.compact.uniq)
           attributes.each do |name, attribute|
             if index = attribute.options[:position]
               configuration.attributes.insert(index, attribute)
             else
               configuration.attributes << attribute
             end
+            add_to_fieldset(attribute)
           end
         end
       end
@@ -48,56 +74,15 @@ module Archetype
 
       private
 
-      def add_missing_fieldsets(names)
-        names.each do |name|
-          name = name.to_sym
-          next if class_builders[:fieldsets].key?(name)
-          class_builders[:fieldsets][name] = FieldsetBuilder.new(name) 
+      def add_to_fieldset(attribute)
+        name = attribute.name
+        return if configuration.fieldsets.any?{|f| f.has_attribute?(name) }
+        if attribute.is_a?(Association) && attribute.nested?
+          fieldset = (builders[:fieldsets][name] ||= FieldsetBuilder.new({name: name, label: attribute.label}))
+        else
+          fieldset = builders[:fieldsets][:default]   
         end
-      end
-
-      class << self
-        def fieldset(name, opts={})
-          name = name.to_sym
-          attrs = opts.delete(:attributes)
-          fieldset_builders[name] = FieldsetBuilder.new(name, opts)
-          attributes(*attrs, fieldset: name) if attrs && attrs.any?
-        end
-
-        def attributes(*args)
-          opts = args.extract_options!
-          names = args.delete(:all) ? attribute_builders.keys : args.map(&:to_sym)
-          names.reverse! if opts[:position]
-          names.each do |name|
-            builder = attribute_builders[name] || AttributeBuilder.new(name)
-            attribute_builders[name] = builder.from_hash(opts)
-          end
-        end
-        alias_method :attribute, :attributes
-
-        def association(*args)
-          opts = args.extract_options!
-          args.reverse! if opts[:position]
-          args.each do |name|
-            builder = attribute_builders[name] || AssociationBuilder.new(name)
-            attribute_builders[name] = builder.from_hash(opts)
-          end
-        end
-
-        def attribute_model(model)
-          builders = ModelFactory.new(model).build
-          builders.each do |builder|
-            attribute_builders[builder.name] = builder
-          end
-        end
-
-        def attribute_builders
-          builders[:attributes] ||= HashBuilder.new
-        end
-
-        def fieldset_builders
-          builders[:fieldsets] ||= HashBuilder.new
-        end
+        fieldset.attributes << attribute.name
       end
     end
   end

@@ -1,11 +1,9 @@
 module Archetype
   module Attributes
-    class AttributeBuilder < ObjectBuilder
+    class AttributeBuilder < ModelBuilder
       DEFAULT_CONTEXTS = [:index, :show, :new, :edit, :create, :update, :destroy]
 
       dsl_accessor :type, :fieldset, :label, :contexts, :collection, :input, :position
-      alias_method :context, :contexts
-      alias_method :context=, :contexts=
 
       def type(value=NULL)
         type = @type || :string
@@ -19,9 +17,12 @@ module Archetype
         self.contexts = value
       end
 
+      # TODO: This is wrong - we shouldn't override the setters like this.
       def contexts=(value)
         @contexts = filter_contexts(contexts, value)
       end
+      alias_method :context, :contexts
+      alias_method :context=, :contexts=
 
       def hidden?
         return true if %i(id created_at updated_at).include?(name)

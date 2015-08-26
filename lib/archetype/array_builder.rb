@@ -8,6 +8,11 @@ module Archetype
       @array = array
     end
 
+    def initialize_clone(other)
+      @array = other.instance_variable_get(:@array).clone
+      super
+    end
+
     def build(delegate)
       return [] unless any?
       collect do |object|

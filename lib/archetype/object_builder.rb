@@ -1,28 +1,21 @@
 module Archetype
   class ObjectBuilder
     include Builder
-    dsl_accessor :name, :options
+    dsl_accessor :object
 
-    def initialize(name, options={})
-      @name = name
-      @options = process_options(options || {})
+    def initialize(object=nil)
+      @object = object
     end
 
-    def dsl_method
-      as || name.to_sym
+    def build(delegate)
+      super
+      @object
     end
-
+    
     private
 
-    def process_options(opts)
-      opts.inject({}) do |sum, (k, v)|
-        if respond_to?("#{k}=")
-          send("#{k}=", v)
-        else
-          sum[k] = v
-        end
-        sum
-      end
+    def build_from_delegate(delegate)
+      @object = super
     end
   end
 end

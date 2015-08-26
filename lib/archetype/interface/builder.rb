@@ -3,6 +3,9 @@ module Archetype
     class Builder
       include Archetype::ModuleBuilder
 
+      builds :crumbs, with: HashBuilder
+      builds :navigation, with: Navigable::Builder
+
       def build_crumbs
         super do |crumbs|
           crumbs.each do |name, crumb|
@@ -29,7 +32,6 @@ module Archetype
         def navigable(name, *args)
           opts = args.extract_options!
           opts.merge!(name: name, path: args.first)
-          builders[:navigation] ||= Navigable::Builder.new(name)
           builders[:navigation].from_hash(opts)
         end 
 
@@ -37,8 +39,7 @@ module Archetype
           name = name.to_sym
           opts = args.extract_options!
           opts.merge!(name: name, path: args.first)
-          builders[:crumbs] ||= HashBuilder.new
-          builder = builders[:crumbs][name] || Crumb::Builder.new(name)
+          builder = builders[:crumbs][name] || Crumb::Builder.new
           builder.from_hash(opts)
           builders[:crumbs][name] = builder
         end

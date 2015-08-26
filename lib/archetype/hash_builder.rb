@@ -2,10 +2,15 @@ module Archetype
   class HashBuilder
     include Builder
     extend Forwardable
-    def_delegators :@hash, :[], :[]=, :any?, :key?, :inject, :merge, :merge!
+    def_delegators :@hash, :[], :[]=, :any?, :key?, :inject, :fetch, :merge, :merge!
 
     def initialize(hash={})
       @hash = hash
+    end
+
+    def initialize_clone(other)
+      @hash = other.instance_variable_get(:@hash).clone
+      super
     end
 
     def build(delegate)

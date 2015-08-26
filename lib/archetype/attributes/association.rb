@@ -7,12 +7,6 @@ module Archetype
         super(name, macro, options)
       end
 
-      def fieldset
-        return options[:fieldset] if options[:fieldset]
-        return name if nested?
-        super
-      end
-
       def association
         options[:association]
       end

@@ -16,8 +16,8 @@ module Archetype
       def attributes(*args)
         opts = args.extract_options!
         args.each do |name|
-          builder = self[name] || AttributeBuilder.new(name)
-          self[name] = builder.from_hash(opts)
+          builder = self[name] || AttributeBuilder.new
+          self[name] = builder.from_hash(opts.merge(name: name))
         end
       end
       alias_method :attribute, :attributes
@@ -25,8 +25,8 @@ module Archetype
       def association(*args)
         opts = args.extract_options!
         args.each do |name|
-          builder = self[name] || AssociationBuilder.new(name)
-          self[name] = builder.from_hash(opts)
+          builder = self[name] || AssociationBuilder.new
+          self[name] = builder.from_hash(opts.merge(name: name))
         end
       end
 

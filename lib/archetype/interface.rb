@@ -16,8 +16,9 @@ module Archetype
       layout 'archetype/application'
       helper_method :interface
 
-      archetype.module(:interface, Interface::Controller)
-      archetype.interface do |controller|
+      archetype.module Interface::Controller
+
+      archetype.defaults(:interface) do |controller|
         crumb controller.archetype_name
       end
     end

@@ -9,7 +9,7 @@ module Archetype
     end
 
     def build(delegate)
-      build_from_delegate(delegate)
+      build_from_delegate(delegate) if delegate_can_build?(delegate)
     end
     
     def configure(&block)
@@ -23,8 +23,12 @@ module Archetype
 
     private
 
+    def delegate_can_build?(delegate)
+      dsl_method && delegate.respond_to?(dsl_method)
+    end
+
     def build_from_delegate(delegate)
-      delegate.send(dsl_method, self) if delegate.respond_to?(dsl_method)
+      delegate.send(dsl_method, self)
     end
 
     module ClassMethods

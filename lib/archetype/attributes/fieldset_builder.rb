@@ -1,7 +1,12 @@
 module Archetype
   module Attributes
-    class FieldsetBuilder < ObjectBuilder
-      dsl_accessor :label
+    class FieldsetBuilder < ModelBuilder
+      dsl_accessor :label, :attributes
+
+      def initialize(options={})
+        super
+        @attributes = options.delete(:attributes){ [] }
+      end
 
       def build(delegate)
         super
@@ -9,7 +14,10 @@ module Archetype
       end
 
       def fieldset_options
-        {label: label}.merge(options)
+        {
+          label: label,
+          attributes: attributes
+        }.merge(options)
       end
 
       def dsl_method

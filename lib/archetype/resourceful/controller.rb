@@ -3,8 +3,8 @@ module Archetype
     class Controller
       include Archetype::Module
 
-      def builder
-        @builder ||= Class.new(Builder)
+      def base_build_class
+        Builder
       end
     end
   end

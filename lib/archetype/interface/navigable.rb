@@ -21,16 +21,8 @@ module Archetype
         options[:position]
       end
 
-      class Builder < ObjectBuilder
-        def initialize(name)
-          @name = name
-        end
-
-        def dsl_method
-          super || name.to_sym
-        end
-
-        dsl_accessor :name, :path, :label, :icon, :position
+      class Builder < ModelBuilder
+        dsl_accessor :path, :label, :icon, :position
 
         def options
           {

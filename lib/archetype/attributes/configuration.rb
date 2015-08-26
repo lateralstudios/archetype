@@ -10,6 +10,10 @@ module Archetype
       def fieldsets
         @fieldsets ||= []
       end
+
+      def default_fieldset
+        fieldsets[0]
+      end
     end
   end
 end
