@@ -63,8 +63,8 @@ module Archetype
             else
               configuration.attributes << attribute
             end
-            add_to_fieldset(attribute)
           end
+          update_fieldset_builders(attributes)
         end
       end
 
@@ -74,15 +74,21 @@ module Archetype
 
       private
 
+      def update_fieldset_builders(attributes)
+        default_fieldset = builders[:fieldsets][:default]
+        default_fieldset.attributes = []
+        attributes.each_value{|a| add_to_fieldset(a) }
+      end
+
       def add_to_fieldset(attribute)
         name = attribute.name
-        return if configuration.fieldsets.any?{|f| f.has_attribute?(name) }
+        return if builders[:fieldsets].values.any?{|f| f.attributes.include?(name) }
         if attribute.is_a?(Association) && attribute.nested?
           fieldset = (builders[:fieldsets][name] ||= FieldsetBuilder.new({name: name, label: attribute.label}))
         else
           fieldset = builders[:fieldsets][:default]   
         end
-        fieldset.attributes << attribute.name
+        fieldset.attributes += [attribute.name]
       end
     end
   end
