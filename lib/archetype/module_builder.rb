@@ -59,8 +59,6 @@ module Archetype
 
       def builder_for(controller)
         @controller = controller.archetype_controller
-        mod = @controller.modules[module_name]
-        mod.set_build_class(self)
       end
 
       def apply_defaults!
