@@ -10,7 +10,7 @@ module Archetype
 
         def time_for(form)
           h = form.template
-          h.concat form.input_field(name, as: :hidden)
+          h.concat form.input_field(name, as: :hidden, value: field_format(attribute.from(object)))
           h.concat(h.content_tag(:div, class: 'timepicker input-group time') do
             h.concat h.text_field_tag('', field_format(attribute.from(object)), {class: 'form-control', data: {format: 'hh:mm:ss'}})
             h.concat(h.content_tag(:span, class: 'add-on input-group-addon') do

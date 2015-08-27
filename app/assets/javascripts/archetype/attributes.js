@@ -23,7 +23,7 @@ $(document).ready(function(){
       pickDate: false
     });
     $item.on('changeDate', function(e){
-      $hidden.val(moment.utc(e.date).format("HH:mm:ss UTC"));
+      $hidden.val(moment.utc(e.date).format("HH:mm:ss"));
     });
   });
 });
