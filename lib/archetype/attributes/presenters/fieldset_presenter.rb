@@ -4,9 +4,8 @@ module Archetype
       class FieldsetPresenter < SimpleDelegator
         attr_accessor :attributes
 
-        def initialize(fieldset, attributes=[])
+        def initialize(fieldset)
           @fieldset = fieldset
-          @attributes = attributes
           super(fieldset)
         end
         
@@ -16,6 +15,13 @@ module Archetype
 
         def empty?(context=nil)
           (context ? attributes.for(context) : attributes).empty?
+        end
+
+        def extract_attributes(all_attributes)
+          attrs = @fieldset.attributes.map do |name|
+            all_attributes.find{|a| a.name == name }
+          end.compact
+          @attributes = AttributeSet.new(attrs)
         end
       end
     end

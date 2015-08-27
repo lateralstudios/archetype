@@ -31,13 +31,18 @@ module Archetype
 
       def fieldset_presenters
         @fieldset_presenters ||= config.fieldsets.map do |fieldset|
-          attrs = attributes.only(fieldset.attributes)
-          Presenters::FieldsetPresenter.new(fieldset, attrs)
+          Presenters::FieldsetPresenter.new(fieldset).tap do |presenter|
+            presenter.extract_attributes(attribute_presenters)
+          end
         end
       end
 
       def attributes
-        @attributes ||= AttributeSet.new(config.attributes.map{|a| a.presenter_class.new(a, h) })
+        @attributes ||= AttributeSet.new(attribute_presenters)
+      end
+
+      def attribute_presenters
+        @attribute_presenters ||= config.attributes.map{|a| a.presenter_class.new(a, h) }
       end
 
       def h
