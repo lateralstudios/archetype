@@ -27,7 +27,6 @@ module Archetype
 
     def build_block(&block)
       build_class.class_exec(controller, &block)
-      configure
     end
 
     def set_build_class(klass)

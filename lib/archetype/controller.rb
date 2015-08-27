@@ -11,6 +11,10 @@ module Archetype
       self.configuration = initialize_config
       super(controller)
     end
+    
+    def configure
+      modules.each_value(&:configure)
+    end
 
     def module?(name)
       modules.key?(name.to_sym)

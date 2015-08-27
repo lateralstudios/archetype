@@ -10,5 +10,11 @@ module Archetype
         end
       end
     end
+
+    initializer 'archetype.configure_controllers' do
+      Rails.application.config.after_initialize do
+        Archetype.controllers.each_value(&:configure)
+      end
+    end
   end
 end
