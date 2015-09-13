@@ -10,6 +10,12 @@ module Archetype
         def nested_input_for(opts)
           h = form.template
           h.content_tag(:div, class: 'well') do
+            errors = object.errors.full_messages_for(name)
+            if errors.any?
+              h.concat(h.content_tag(:div, class: 'callout callout-danger') do
+                h.content_tag(:p, errors.join('<br />').html_safe)
+              end)
+            end
             nested_objects.each do |nested|
               h.concat nested_fields(nested, opts)
             end
