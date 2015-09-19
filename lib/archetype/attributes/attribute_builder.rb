@@ -17,6 +17,12 @@ module Archetype
         self.contexts = value
       end
 
+      def input(value=NULL)
+        input = @input || {}
+        return input if value == NULL
+        self.input = value
+      end
+
       # TODO: This is wrong - we shouldn't override the setters like this.
       def contexts=(value)
         @contexts = filter_contexts(contexts, value)
@@ -76,6 +82,16 @@ module Archetype
 
       def default_class
         Attribute
+      end
+
+      def self.for(type=nil)
+        return self unless type.present?
+        klass = self.descendants.find{|c| c.for_type?(type) }
+        klass || self
+      end
+
+      def self.for_type?(type)
+        name.demodulize == "#{type.to_s.classify}Builder"
       end
     end
   end

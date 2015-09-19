@@ -18,7 +18,7 @@ module Archetype
           names = args.delete(:all) ? builders[:attributes].keys : args.map(&:to_sym)
           names.reverse! if opts[:position]
           names.each do |name|
-            builder = builders[:attributes].fetch(name){ AttributeBuilder.new }
+            builder = builders[:attributes].fetch(name){ AttributeBuilder.for(opts[:type]).new }
             builders[:attributes][name] = builder.from_hash(opts.merge(name: name))
           end
         end
@@ -28,7 +28,7 @@ module Archetype
           opts = args.extract_options!
           args.reverse! if opts[:position]
           args.each do |name|
-            builder = builders[:attributes].fetch(name){ AssociationBuilder.new }
+            builder = builders[:attributes].fetch(name){ AssociationBuilder.for(opts[:type]).new }
             builders[:attributes][name] = builder.from_hash(opts.merge(name: name))
           end
         end

@@ -47,7 +47,7 @@ module Archetype
           type: column.type,
           column: column
         }
-        builders << AttributeBuilder.new(options)
+        builders << AttributeBuilder.for(options[:type]).new(options)
       end
 
       def add_association(name, association, column=nil)
@@ -58,7 +58,7 @@ module Archetype
           association: association,
           polymorphic: association.options[:polymorphic]
         }
-        builders << AssociationBuilder.new(options)
+        builders << AssociationBuilder.for(options[:type]).new(options)
       end
 
       def add_uploader(name, uploader, column)
@@ -68,7 +68,7 @@ module Archetype
           column: column,
           uploader: uploader
         }
-        builders << AttributeBuilder.new(options)
+        builders << AttributeBuilder.for(options[:type]).new(options)
       end
 
       private
