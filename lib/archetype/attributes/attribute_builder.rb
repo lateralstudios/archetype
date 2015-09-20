@@ -36,7 +36,7 @@ module Archetype
       end
 
       def attribute_options
-        options.merge({
+        options.deep_merge({
           fieldset: fieldset,
           label: label,
           contexts: contexts,

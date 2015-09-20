@@ -3,14 +3,13 @@ module Archetype
     module Presenters
       class AssociationPresenter < AttributePresenter
         def nested
-          @nested ||= AttributeSet.new(super.map{|_, a| a.presenter_class.new(a, h) }).any_context
+          @nested ||= AttributeSet.new(super.presenters(h)).any_context
         end
 
         def field(form, object=nil)
+          return SimpleForm::Nested.new(self, form, object) if nested?
           SimpleForm::Association.new(self, form, object)
         end
-
-        private
 
         def name_from(object)
           key = %i(name title label).find{|k| object.respond_to?(k) && object.send(k).present? }

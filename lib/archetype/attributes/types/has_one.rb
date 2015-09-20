@@ -11,7 +11,7 @@ module Archetype
         end
 
         def param
-          return nested_params if nested?
+          return nested.params(name) if nested?
           name = super
           name.to_s.foreign_key.to_sym
         end

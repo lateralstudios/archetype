@@ -7,6 +7,12 @@ $(document).ready(function(){
     update_polymorphic_select($(this).closest('.polymorphic-select'));
   });
 
+  $('.nested.blueprint').remove();
+
+  $(document).on('nested:fieldAdded', function(event){
+    $.AdminLTE.boxWidget.activate();
+  })
+
   $('.datetimepicker').each(function(index, item){
     var $item = $(item),
         $hidden = $item.prev('input[type=\'hidden\']');

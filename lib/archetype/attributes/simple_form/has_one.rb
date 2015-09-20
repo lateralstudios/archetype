@@ -3,7 +3,6 @@ module Archetype
     module SimpleForm
       class HasOne < Association
         def input(opts={})
-          return nested_input_for(opts) if attribute.nested?
           return polymorphic_input if attribute.polymorphic?
           super
         end

@@ -11,6 +11,7 @@ module Archetype
         end
 
         def field(form, object=nil)
+          return SimpleForm::Nested.new(self, form, object) if nested?
           SimpleForm::HasOne.new(self, form, object)
         end
       end

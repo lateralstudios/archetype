@@ -8,6 +8,16 @@ module Archetype
         super(builders)
       end
 
+      def build(delegate)
+        NestedAttributes.new(super, options)
+      end
+
+      def options
+        {
+          allow_destroy: allow_destroy?
+        }
+      end
+
       #TODO this is unused currently. Association.nested should be a NestedAttributes object
       def allow_destroy?
         !!@allow_destroy

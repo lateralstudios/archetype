@@ -12,7 +12,7 @@ module Archetype
       end
 
       def nested
-        @nested ||= {}
+        @nested ||= NestedAttributes.new
       end
 
       def nested?
@@ -20,18 +20,11 @@ module Archetype
       end
 
       def param
-        return nested_params if nested?
+        return nested.params(name) if nested?
         super
       end
 
       private
-
-      def nested_params
-        param_name = "#{name.to_s}_attributes".to_sym
-        params = {}
-        params[param_name] = [:id, :_destroy] + nested.map{|_,v| v.param }
-        params
-      end
 
       def default_presenter
         Presenters::AssociationPresenter
