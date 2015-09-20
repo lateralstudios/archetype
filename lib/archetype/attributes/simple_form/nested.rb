@@ -13,6 +13,7 @@ module Archetype
             nested_objects.each do |nested|
               h.concat(nested_object(nested, opts))
             end
+            h.concat(nested_object(new_nested_object, class: 'blueprint'))
             h.concat(h.content_tag(:p) do
               form.link_to_add "Add a #{nested_name.downcase}", name
             end)
@@ -20,8 +21,11 @@ module Archetype
         end
 
         def nested_object(object, opts={})
+          box_class = 'nested box box-default'
+          box_class << " #{opts[:class]}" if opts[:class]
+          box_class << " #{box_classes(object)}"
           form.fields_for(name, object) do |nested_form|
-            h.content_tag(:div, class: "nested box box-default #{box_classes(object)}") do 
+            h.content_tag(:div, class: box_class) do 
               h.concat(h.content_tag(:div, class: 'box-header with-border') do
                 h.concat h.content_tag(:h3, nested_object_name(object), class: 'box-title')
                 h.concat(h.content_tag(:div, class: 'box-tools pull-right') do
@@ -51,11 +55,20 @@ module Archetype
           existing = object.send(name)
           return existing if attribute.many? && existing.any?
           if attribute.many?
-            [existing.new]
+            []
           elsif existing
             [existing]
           else
-            [object.send("build_#{name}")]
+            []
+          end
+        end
+
+        def new_nested_object
+          existing = object.send(name)
+          if attribute.many?
+            existing.new
+          else
+            object.send("build_#{name}")
           end
         end
 
@@ -68,9 +81,7 @@ module Archetype
         end
 
         def box_classes(object)
-          if object.new_record? && !object.changed?
-            'blueprint'
-          elsif object.persisted?
+          if object.persisted?
             'collapsed-box'
           end
         end
