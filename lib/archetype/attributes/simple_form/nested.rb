@@ -15,7 +15,7 @@ module Archetype
             end
             h.concat(nested_object(new_nested_object, class: 'blueprint'))
             h.concat(h.content_tag(:p) do
-              form.link_to_add "Add a #{nested_name.downcase}", name
+              form.link_to_add "Add #{nested_name.downcase}", name
             end)
           end
         end

@@ -7,7 +7,8 @@ module Archetype
         end
 
         def long_format(object)
-          h.content_tag(:div, super(object).html_safe, class: 'froala-view')
+          content = super(object) || ''
+          h.content_tag(:div, content.html_safe, class: 'froala-view')
         end
       end
     end
