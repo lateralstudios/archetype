@@ -6,4 +6,18 @@
 
 $(document).ready(function(){
   Archetype.wysiwyg.init();
+
+  function resizeAffix(){
+    $('[data-spy=\'affix\']').each(function(idx, item){
+      var $item = $(item);
+      $item.width($item.parent().width());
+    });
+  }
+
+  $(document).ready(function () {
+    $(window).resize(function () {
+      resizeAffix();
+    });
+    resizeAffix();
+  });
 });
