@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "responders"
   s.add_dependency "has_scope"
   s.add_dependency "kaminari"
+  s.add_dependency "country_select"
   s.add_dependency "simple_form"
   s.add_dependency "wysiwyg-rails"
 end

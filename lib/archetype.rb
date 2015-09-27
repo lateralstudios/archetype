@@ -1,5 +1,6 @@
 require "jquery-rails"
 require "bootstrap-sass"
+require "country_select"
 require "archetype/engine"
 require "archetype/application"
 require "archetype/router"
