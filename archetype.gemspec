@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = Archetype::VERSION
   s.authors     = ["Tom Beynon"]
   s.email       = ["tombeynon@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Archetype."
-  s.description = "TODO: Description of Archetype."
+  s.homepage    = "http://github.com/lateralstudios/archetype"
+  s.summary     = "Management framework for rails"
+  s.description = "Management framework for rails"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
