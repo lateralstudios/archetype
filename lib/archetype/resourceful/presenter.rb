@@ -20,7 +20,7 @@ module Archetype
 
       def resource
         return unless resource?
-        @resource ||= ResourcePresenter.new(controller.send(:resource), self)
+        @resource ||= ResourcePresenter.new(controller.send(:resource))
       end
 
       def collection

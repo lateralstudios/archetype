@@ -1,12 +1,11 @@
 module Archetype
   module Resourceful
     class ResourcePresenter < SimpleDelegator
-      attr_accessor :resourceful, :resource
+      attr_accessor :resource
       delegate :class, to: :resource
 
-      def initialize(resource, resourceful)
+      def initialize(resource)
         @resource = resource
-        @resourceful = resourceful
         super(resource)
       end
 

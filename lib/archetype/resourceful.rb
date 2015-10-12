@@ -41,6 +41,8 @@ module Archetype
       end
     end
 
+    private
+
     def resourceful
       @resourceful ||= Presenter.new(archetype_controller.resourceful, self)
     end

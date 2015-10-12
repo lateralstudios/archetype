@@ -30,7 +30,6 @@ module Archetype
       # POST /resources
       def create(options={}, &block)
         object = build_resource
-
         create_resource(object)
         respond_with(resource, options, &block)
       end
@@ -38,7 +37,6 @@ module Archetype
       # PUT /resources/1
       def update(options={}, &block)
         object = resource
-
         update_resource(object, resource_params)
         respond_with(resource, options, &block)
       end
@@ -46,7 +44,6 @@ module Archetype
       # DELETE /resources/1
       def destroy(options={}, &block)
         object = resource
-
         destroy_resource(object)
         respond_with(resource, options, &block)
       end
