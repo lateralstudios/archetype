@@ -1,4 +1,14 @@
-$(document).ready(function(){
+function init(){
+  $('.nested.blueprint').remove();
+  reinit();
+
+  $(document).on('nested:fieldAdded', function(event){
+    $.AdminLTE.boxWidget.activate();
+    reinit();
+  })
+}
+
+function reinit(){
   $('.polymorphic-select').each(function(index, item){
     update_polymorphic_select($(item).closest('.polymorphic-select'));
   });
@@ -6,12 +16,6 @@ $(document).ready(function(){
   $(document).on('change', '.polymorphic-select select.polymorphic', function(e){
     update_polymorphic_select($(this).closest('.polymorphic-select'));
   });
-
-  $('.nested.blueprint').remove();
-
-  $(document).on('nested:fieldAdded', function(event){
-    $.AdminLTE.boxWidget.activate();
-  })
 
   $('.datetimepicker').each(function(index, item){
     var $item = $(item),
@@ -32,6 +36,10 @@ $(document).ready(function(){
       $hidden.val(moment.utc(e.date).format("HH:mm:ss"));
     });
   });
+}
+
+$(document).ready(function(){
+  init();
 });
 
 function update_polymorphic_select(wrapper){
