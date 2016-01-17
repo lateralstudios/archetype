@@ -2,6 +2,14 @@ module Archetype
   module Attributes
     module SimpleForm
       class Nested < Input
+        def can_delete?
+          attribute.many?
+        end
+
+        def can_add?
+          attribute.many? || object.send(name).nil?
+        end
+
         def input(opts={})
           h.capture do
             errors = object.errors.full_messages_for(name)
@@ -13,10 +21,12 @@ module Archetype
             nested_objects.each do |nested|
               h.concat(nested_object(nested, opts))
             end
-            h.concat(nested_object(new_nested_object, class: 'blueprint'))
-            h.concat(h.content_tag(:p) do
-              form.link_to_add "Add #{nested_name.downcase}", name
-            end)
+            if can_add?
+              h.concat(nested_object(new_nested_object, class: 'blueprint')) 
+              h.concat(h.content_tag(:p) do
+                form.link_to_add "Add #{nested_name.downcase}", name
+              end)
+            end
           end
         end
 
@@ -32,9 +42,11 @@ module Archetype
                   h.concat(h.button_tag(class: 'btn btn-box-tool', data: {widget: 'collapse'}) do
                     h.content_tag(:i, '', class: "fa #{object.persisted? ? 'fa-plus' : 'fa-minus'}")
                   end)
-                  h.concat(nested_form.link_to_remove(class: 'btn btn-box-tool', data: {confirm: "Are you sure you want to delete this #{nested_name.downcase}?"}) do
-                    h.content_tag(:i, '', class: 'fa fa-times')
-                  end)
+                  if can_delete?
+                    h.concat(nested_form.link_to_remove(class: 'btn btn-box-tool', data: {confirm: "Are you sure you want to delete this #{nested_name.downcase}?"}) do
+                      h.content_tag(:i, '', class: 'fa fa-times')
+                    end)
+                  end
                 end)
               end)
               h.concat(h.content_tag(:div, class: 'box-body') do
