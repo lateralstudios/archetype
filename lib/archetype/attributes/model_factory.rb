@@ -82,6 +82,7 @@ module Archetype
       end
 
       def uploaders
+        return {} unless model.respond_to?(:uploaders)
         model.uploaders
       end
     end
