@@ -4,31 +4,24 @@ module Archetype
       DEFAULT_CONTEXTS = [:index, :show, :new, :edit, :create, :update, :destroy]
 
       dsl_accessor :type, :fieldset, :label, :contexts, :collection, :input, :position
+      alias_method :context, :contexts
+      alias_method :context=, :contexts=
 
-      def type(value=NULL)
-        type = @type || :string
-        return type if value == NULL
-        self.type = value
+      def build_type
+        @type || :string
       end
 
-      def contexts(value=NULL)
-        contexts = @contexts || default_contexts
-        return contexts if value == NULL
-        self.contexts = value
+      def build_contexts
+        @contexts || default_contexts
       end
 
-      def input(value=NULL)
-        input = @input || {}
-        return input if value == NULL
-        self.input = value
+      def build_input(value=NULL)
+        @input || {}
       end
 
-      # TODO: This is wrong - we shouldn't override the setters like this.
       def contexts=(value)
         @contexts = filter_contexts(contexts, value)
       end
-      alias_method :context, :contexts
-      alias_method :context=, :contexts=
 
       def hidden?
         return true if %i(id created_at updated_at).include?(name)
@@ -36,14 +29,14 @@ module Archetype
       end
 
       def attribute_options
-        options.deep_merge({
-          fieldset: fieldset,
-          label: label,
-          contexts: contexts,
-          position: position,
-          collection: collection,
-          input: input
-        }.compact)
+        attribute_options = {}
+        attribute_options[:fieldset] = fieldset if fieldset
+        attribute_options[:label] = label if label
+        attribute_options[:contexts] = contexts if contexts
+        attribute_options[:position] = position if position
+        attribute_options[:collection] = collection if collection
+        attribute_options[:input] = input if input
+        options.deep_merge(attribute_options)
       end
 
       def build(delegate)

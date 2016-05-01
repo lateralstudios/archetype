@@ -36,8 +36,12 @@ module Archetype
         attr_writer *args
         args.each do |accessor|
           define_method accessor do |value=NULL|
-            return instance_variable_get("@#{accessor}") if value == NULL
+            return send("build_#{accessor}") if value == NULL
             send("#{accessor}=", value)
+          end
+
+          define_method "build_#{accessor}" do
+            instance_variable_get("@#{accessor}")
           end
         end
       end

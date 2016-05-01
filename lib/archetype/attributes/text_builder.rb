@@ -3,10 +3,12 @@ module Archetype
     class TextBuilder < AttributeBuilder
       dsl_accessor :wysiwyg
 
-      def wysiwyg(value=NULL)
-        wysiwyg = @wysiwyg || false
-        return wysiwyg if value == NULL
-        self.wysiwyg = value
+      def build_wysiwyg
+        @wysiwyg || false
+      end
+
+      def wysiwyg=(value)
+        @wysiwyg = value
         if value
           existing = input[:html].try(:[], :class)
           new = [existing, 'wysiwyg'].compact.join(' ')

@@ -20,7 +20,7 @@ module Archetype
           {
             label: label,
             position: position
-          }.compact
+          }
         end
 
         def build(delegate)
