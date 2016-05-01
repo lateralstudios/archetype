@@ -5,7 +5,6 @@ module Archetype
 
       dsl_accessor :type, :fieldset, :label, :contexts, :collection, :input, :position
       alias_method :context, :contexts
-      alias_method :context=, :contexts=
 
       def build_type
         @type || :string
@@ -22,6 +21,7 @@ module Archetype
       def contexts=(value)
         @contexts = filter_contexts(contexts, value)
       end
+      alias_method :context=, :contexts=
 
       def hidden?
         return true if %i(id created_at updated_at).include?(name)
