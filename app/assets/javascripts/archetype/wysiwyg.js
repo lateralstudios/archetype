@@ -17,7 +17,7 @@ Archetype.wysiwyg = function() {
       allowedImageTypes: ["jpeg", "jpg", "png", "gif"]
     }
     var options = $.extend({}, defaults, opts);
-    el.editable(options).on('editable.imageError', handleUploadError)
+    el.froalaEditor(options).on('editable.imageError', handleUploadError)
   }
 
   function basic(el, opts){
@@ -27,7 +27,7 @@ Archetype.wysiwyg = function() {
       buttons: ['bold', 'italic', 'underline']
     }
     var options = $.extend({}, defaults, opts);
-    el.editable(options);
+    el.froalaEditor(options);
   }
 
   function getParams() {
