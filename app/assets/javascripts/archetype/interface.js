@@ -14,10 +14,8 @@ $(document).ready(function(){
     });
   }
 
-  $(document).ready(function () {
-    $(window).resize(function () {
-      resizeAffix();
-    });
+  $(window).resize(function () {
     resizeAffix();
   });
+  resizeAffix();
 });
