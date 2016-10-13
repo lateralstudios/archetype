@@ -6,9 +6,10 @@ module Archetype
           if thumb = thumb_from(object)
             h.image_tag(thumb, width: 50)
           else
-            filename(object)
+            h.link_to filename(object), from(object).url
           end
         end
+        alias_method :long_format, :short_format
 
         def field(form, object=nil)
           SimpleForm::Uploader.new(self, form, object)
