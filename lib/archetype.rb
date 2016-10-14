@@ -1,19 +1,8 @@
-require "jquery-rails"
-require "bootstrap-sass"
-require "country_select"
-require "archetype/engine"
-require "archetype/application"
-require "archetype/router"
-require "archetype/builder"
-require "archetype/object_builder"
-require "archetype/model_builder"
-require "archetype/hash_builder"
-require "archetype/array_builder"
-require "archetype/module"
-require "archetype/module_builder"
-require "archetype/base"
-require "archetype/dashboard"
-require "archetype/resourceful"
+require 'archetype_core'
+require 'archetype_interface'
+require 'archetype_attributes'
+require 'archetype_resourceful'
+require 'archetype_dashboard'
 
 module Archetype
   class << self
@@ -35,6 +24,6 @@ module Archetype
   end
 
   def self.mount(app_router, opts={}, &block)
-    Archetype::Router.mount app_router, opts, &block
+    Archetype::Core::Router.mount app_router, opts, &block
   end
 end

@@ -1,5 +1,5 @@
-require "archetype/configuration"
-require "archetype/controller"
+require "archetype/core/configuration"
+require "archetype/core/controller"
 
 module Archetype
   class Application

@@ -1,3 +1,4 @@
+require 'archetype/interface/engine'
 require 'archetype/interface/navigable'
 require 'archetype/interface/navigation'
 require 'archetype/interface/breadcrumb'

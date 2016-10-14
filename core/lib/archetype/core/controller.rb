@@ -1,4 +1,4 @@
-require 'archetype/controller/configuration'
+require 'archetype/core/controller/configuration'
 
 module Archetype
   class Controller < SimpleDelegator
