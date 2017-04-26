@@ -18,6 +18,22 @@ module Archetype
         false
       end
 
+      def can_show?
+        config.actions.include?(:show)
+      end
+
+      def can_new?
+        config.actions.include?(:new)
+      end
+
+      def can_destroy?
+        config.actions.include?(:destroy)
+      end
+
+      def can_edit?
+        config.actions.include?(:edit)
+      end
+
       def resource
         return unless resource?
         @resource ||= ResourcePresenter.new(controller.send(:resource))
