@@ -18,7 +18,6 @@ module Archetype
       def build_per_page
         super do |per|
           configuration.per_page = per
-          controller.scopes_configuration[:per][:default] = per
         end
       end
 

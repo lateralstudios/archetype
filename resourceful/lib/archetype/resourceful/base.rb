@@ -30,7 +30,7 @@ module Archetype
 
       def collection
         get_collection_ivar || begin
-          c = end_of_association_chain
+          c = paginate_collection(filtered_collection)
           set_collection_ivar(c.is_a?(ActiveRecord::Relation) ? c : c.all)
         end
       end
@@ -59,10 +59,22 @@ module Archetype
         @resource_class ||= self.class.resource_class
       end
 
+      def paginate_collection(collection)
+        collection.page(params[:page]).per(resourceful.config.per_page)
+      end
+
+      def filtered_collection
+        apply_scopes_if_available(unfiltered_collection)
+      end
+
+      def unfiltered_collection
+        end_of_association_chain
+      end
+
       private
 
       def end_of_association_chain 
-        apply_scopes_if_available(resource_class)
+        resource_class
       end
 
       def method_for_build 

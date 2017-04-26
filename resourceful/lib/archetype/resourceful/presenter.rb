@@ -42,6 +42,10 @@ module Archetype
       def collection
         controller.send(:collection)
       end
+      
+      def filtered_collection
+        controller.send(:filtered_collection)
+      end
 
       def resource_name
         controller.class.resource_instance_name.to_s.humanize

@@ -4,8 +4,8 @@ module Archetype
       extend ActiveSupport::Concern
 
       included do
-        has_scope :page, default: 1, only: :index
-        has_scope :per, only: :index
+        # has_scope :page, default: 1, only: :index
+        # has_scope :per, only: :index
       end
 
       module ClassMethods
