@@ -84,7 +84,7 @@ module Archetype
       end
 
       def self.for_type?(type)
-        name.demodulize == "#{type.to_s.classify}Builder"
+        self.name.demodulize == "#{type.to_s.classify}Builder"
       end
     end
   end
