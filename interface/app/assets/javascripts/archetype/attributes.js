@@ -1,3 +1,5 @@
+//= require jquery_nested_form
+
 function init(){
   $('.nested.blueprint').remove();
   reinit();
