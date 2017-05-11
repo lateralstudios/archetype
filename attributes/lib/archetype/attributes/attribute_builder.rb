@@ -84,6 +84,7 @@ module Archetype
       end
 
       def self.for_type?(type)
+        return false if self.singleton_class?
         self.name.demodulize == "#{type.to_s.classify}Builder"
       end
     end
