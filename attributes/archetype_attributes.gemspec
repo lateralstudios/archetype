@@ -17,5 +17,9 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
   s.add_dependency 'archetype_core', s.version
+  s.add_dependency "country_select"
+  s.add_dependency "simple_form"
+  s.add_dependency "nested_form"
+  s.add_dependency "wysiwyg-rails", "2.2.4"
 end
 
