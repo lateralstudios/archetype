@@ -18,6 +18,10 @@ module Archetype
         options[:column]
       end
 
+      def sortable?
+        options[:sortable] || true
+      end
+
       alias_method :param, :name
 
       def from(object)

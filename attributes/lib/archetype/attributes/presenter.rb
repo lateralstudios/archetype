@@ -2,7 +2,7 @@ module Archetype
   module Attributes
     class Presenter < Interface::ControllerPresenter
       attr_accessor :config
-      delegate :[], to: :attributes
+      delegate :[], :find, :find_all, to: :attributes
 
       def initialize(config, controller)
         @config = config

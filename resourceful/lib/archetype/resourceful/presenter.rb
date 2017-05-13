@@ -34,6 +34,22 @@ module Archetype
         config.actions.include?(:edit)
       end
 
+      def can_sort?(attribute)
+        sortable_attributes.map(&:name).include?(attribute.to_sym)
+      end
+
+      def sort_direction(field)
+        if controller.params[:sort_by] == field.to_s
+          controller.sort_direction == :desc ? :asc : :desc
+        else
+          :asc
+        end
+      end
+
+      def sortable_attributes
+        @sortable_attributes ||= attributes.find_all{|a| a.sortable? }
+      end
+
       def resource
         return unless resource?
         @resource ||= ResourcePresenter.new(controller.send(:resource))
