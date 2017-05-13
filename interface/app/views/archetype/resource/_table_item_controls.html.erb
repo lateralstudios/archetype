@@ -1,3 +1,16 @@
-<%= link_to 'View', table_item, class: 'btn btn-sm btn-default' if resourceful.can_show? %>
-<%= link_to 'Edit', [:edit, table_item], class: 'btn btn-sm btn-primary' if resourceful.can_edit? %>
-<%= link_to 'Delete', [table_item], class: 'btn btn-sm btn-danger', method: :delete, data: {confirm: 'Are you sure you want to delete this entry?'} if resourceful.can_destroy? %>
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Actions <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <% if resourceful.can_show? %>
+      <li><%= link_to 'View', table_item %></li>
+    <% end %>
+    <% if resourceful.can_edit? %>
+      <li><%= link_to 'Edit', [:edit, table_item] %></li>
+    <% end %>
+    <% if resourceful.can_destroy? %>
+      <li><%= link_to 'Delete', [table_item], method: :delete, data: {confirm: 'Are you sure you want to delete this entry?'} %></li>
+    <% end %>
+  </ul>
+</div>
