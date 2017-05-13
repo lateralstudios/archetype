@@ -34,7 +34,7 @@ module Archetype
         config.actions.include?(:edit)
       end
 
-      def can_sort?(attribute)
+      def sortable?(attribute)
         sortable_attributes.map(&:name).include?(attribute.to_sym)
       end
 

@@ -2,7 +2,7 @@
   <th style="width: 10px"></th>
   <% attributes.for(:index).take(10).each do |attribute| %>
     <th>
-      <% if resourceful.can_sort?(attribute.name) %>
+      <% if resourceful.sortable?(attribute.name) %>
         <%= link_to attribute.label, {sort_by: attribute.name, sort_direction: resourceful.sort_direction(attribute.name)} %>
       <% else %>
         <%= attribute.label %>

@@ -9,7 +9,7 @@ require 'archetype/resourceful/actions'
 require 'archetype/resourceful/resource_presenter' # just resource.rb ?
 require 'archetype/resourceful/parameters'
 require 'archetype/resourceful/paginated'
-require 'archetype/resourceful/sorted'
+require 'archetype/resourceful/sortable'
 require 'archetype/resourceful/configuration'
 require 'archetype/resourceful/controller'
 require 'archetype/resourceful/builder'
@@ -30,7 +30,7 @@ module Archetype
       include Actions
       include Parameters
       include Paginated
-      include Sorted
+      include Sortable
 
       helper_method :resourceful
 

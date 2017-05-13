@@ -1,6 +1,6 @@
 module Archetype
   module Resourceful
-    module Sorted
+    module Sortable
       extend ActiveSupport::Concern
 
       included do
