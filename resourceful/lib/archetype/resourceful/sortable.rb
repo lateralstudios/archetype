@@ -4,8 +4,7 @@ module Archetype
       extend ActiveSupport::Concern
 
       included do
-        # has_scope :page, default: 1, only: :index
-        # has_scope :per, only: :index
+        helper_method :sort_attribute, :sort_direction
       end
 
       def filtered_collection

@@ -4,6 +4,9 @@
     <th>
       <% if resourceful.sortable?(attribute.name) %>
         <%= link_to attribute.label, {sort_by: attribute.name, sort_direction: resourceful.sort_direction(attribute.name)} %>
+        <% if sort_attribute == attribute.name %>
+          <i class="fa fa-fw fa-sort-<%= sort_direction %>"></i>
+        <% end %>
       <% else %>
         <%= attribute.label %>
       <% end %>
