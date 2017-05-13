@@ -22,6 +22,10 @@ module Archetype
         options[:sortable] || true
       end
 
+      def searchable?
+        options[:searchable] || false
+      end
+
       alias_method :param, :name
 
       def from(object)

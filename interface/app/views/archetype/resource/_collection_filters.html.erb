@@ -1,3 +1,14 @@
+<% if resourceful.searchable? %>
+  <%= form_tag params.merge({page: 1}), method: :get do %>
+    <div class="input-group margin-bottom">
+      <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search for...' %>
+      <span class="input-group-btn">
+        <%= submit_tag 'Go!', class: 'btn btn-default' %>
+      </span>
+    </div><!-- /input-group -->
+  <% end %>
+<% end %>
+
 <div class="box box-solid">
   <div class="box-header with-border">
     <h3 class="box-title">Filter results</h3>

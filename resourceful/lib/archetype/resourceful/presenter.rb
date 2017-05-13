@@ -38,6 +38,10 @@ module Archetype
         sortable_attributes.map(&:name).include?(attribute.to_sym)
       end
 
+      def searchable?
+        searchable_attributes.any?
+      end
+
       def sort_direction(field)
         if controller.params[:sort_by] == field.to_s
           controller.sort_direction == :desc ? :asc : :desc
@@ -48,6 +52,10 @@ module Archetype
 
       def sortable_attributes
         @sortable_attributes ||= attributes.find_all{|a| a.sortable? }
+      end
+
+      def searchable_attributes
+        @searchable_attributes ||= attributes.find_all{|a| a.searchable? }
       end
 
       def resource
