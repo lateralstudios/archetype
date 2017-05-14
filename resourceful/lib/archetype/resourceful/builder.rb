@@ -5,6 +5,7 @@ module Archetype
 
       builds :actions, with: ArrayBuilder
       builds :per_page, with: ObjectBuilder
+      builds :scopes, with: HashBuilder
 
       def build_actions
         super do |actions|
@@ -18,6 +19,14 @@ module Archetype
       def build_per_page
         super do |per|
           configuration.per_page = per
+        end
+      end
+
+      def build_scopes
+        super do |scopes|
+          scopes.each do |name, scope|
+            configuration.scopes[name.to_sym] = scope
+          end
         end
       end
 
@@ -38,6 +47,15 @@ module Archetype
         def actions(*args)
           actions = process_action_args(args, builders[:actions].to_a.dup)
           builders[:actions] = ArrayBuilder.new(actions)
+        end
+
+        def scopes(*args)
+          opts = args.extract_options!
+          args.each do |name|
+            builder = builders[:scopes][name] || Scope::Builder.new
+            builder.from_hash(opts.merge(name: name))
+            builders[:scopes][name] = builder
+          end
         end
 
         def per_page(per)

@@ -15,10 +15,36 @@
   </div>
   <div class="box-body no-padding">
     <ul class="nav nav-pills nav-stacked">
-      <li class='active'>
-        <a href="#">All <span class="pull-right">(<%= resourceful.filtered_collection.count %>)</span></a>
-      </li>
       <%# <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> All</a></li> %>
+      <li class="<%= 'active' unless current_scope %>">
+        <%= link_to params.except(*resourceful.scopes.keys) do %>
+          All <span class="pull-right">(<%= resourceful.unfiltered_collection.count %>)</span>
+        <% end %>
+      </li>
+      <% resourceful.scopes.each do |name, scope| %>
+        <% if scope.multiple? %>
+          <li role="presentation" class="dropdown<%= ' active' if current_scope == name %>">
+            <%= link_to({name => true}, class: "dropdown-toggle", role: 'button', aria_haspopup: true, aria_expanded: false, data: {toggle: 'dropdown'}) do %>
+              <%= scope.label %> <span class="caret"></span>
+            <% end %>
+            <ul class="dropdown-menu">
+              <% scope.values.each do |label, value| %>
+                <li class="<%= 'active' if params[name] == value %>">
+                  <%= link_to({name => value}) do %>
+                    <%= label %> (<%= scope.results(resourceful.unfiltered_collection, value).count %>)
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        <% else %>
+          <li class="<%= 'active' if current_scope == name %>">
+            <%= link_to({name => true}) do %>
+              <%= scope.label %> <span class="pull-right">(<%= scope.results(resourceful.unfiltered_collection).count %>)</span>
+            <% end %>
+          </li>
+        <% end %>
+      <% end %>
     </ul>
   </div><!-- /.box-body -->
 </div>

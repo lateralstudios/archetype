@@ -34,6 +34,10 @@ module Archetype
         config.actions.include?(:edit)
       end
 
+      def scopes
+        config.scopes
+      end
+
       def sortable?(attribute)
         sortable_attributes.map(&:name).include?(attribute.to_sym)
       end
@@ -69,6 +73,10 @@ module Archetype
       
       def filtered_collection
         controller.send(:filtered_collection)
+      end
+      
+      def unfiltered_collection
+        controller.send(:unfiltered_collection)
       end
 
       def resource_name
