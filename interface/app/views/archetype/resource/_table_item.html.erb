@@ -1,6 +1,6 @@
 <tr>
   <td><%= check_box_tag :selection %></td>
-  <% attributes.for(:index).take(10).each do |attribute| %>
+  <% attributes.for(:index).take(8).each do |attribute| %>
     <td><%= attribute.short_format(table_item) %></td>
   <% end %>
   <td><%= render 'table_item_controls', table_item: table_item %></td>
