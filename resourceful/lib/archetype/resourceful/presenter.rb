@@ -18,20 +18,8 @@ module Archetype
         false
       end
 
-      def can_show?
-        config.actions.include?(:show)
-      end
-
-      def can_new?
-        config.actions.include?(:new)
-      end
-
-      def can_destroy?
-        config.actions.include?(:destroy)
-      end
-
-      def can_edit?
-        config.actions.include?(:edit)
+      def has_action?(action)
+        config.actions.include?(action)
       end
 
       def scopes
