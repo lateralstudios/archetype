@@ -18,6 +18,10 @@ module Archetype
         options[:column]
       end
 
+      def block
+        options[:block]
+      end
+
       def sortable?
         options[:sortable] || true
       end

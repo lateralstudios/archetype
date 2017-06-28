@@ -8,11 +8,19 @@ module Archetype
         end
 
         def short_format(object)
-          from(object)
+          if block
+            h.instance_exec(object, &block)
+          else
+            from(object)
+          end
         end
 
         def long_format(object)
-          from(object)
+          if block
+            h.instance_exec(object, &block)
+          else
+            from(object)
+          end
         end
 
         def field(form, object=nil)

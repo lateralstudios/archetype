@@ -13,13 +13,15 @@ module Archetype
           builders[:fieldsets][name] = fieldset
         end
 
-        def attributes(*args)
+        def attributes(*args, &block)
           opts = args.extract_options!
           names = args.delete(:all) ? builders[:attributes].keys : args.map(&:to_sym)
           names.reverse! if opts[:position]
           names.each do |name|
+            attr_opts = opts.merge(name: name)
+            attr_opts[:block] = block if block_given?
             builder = builders[:attributes].fetch(name){ AttributeBuilder.for(opts[:type]).new }
-            builders[:attributes][name] = builder.from_hash(opts.merge(name: name))
+            builders[:attributes][name] = builder.from_hash(attr_opts)
           end
         end
         alias_method :attribute, :attributes

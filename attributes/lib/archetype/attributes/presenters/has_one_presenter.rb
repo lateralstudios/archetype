@@ -3,7 +3,11 @@ module Archetype
     module Presenters
       class HasOnePresenter < AssociationPresenter
         def short_format(object)
-          name_from(from(object))
+          if block
+            h.instance_exec(object, &block)
+          else
+            name_from(from(object))
+          end
         end
 
         def long_format(object)
