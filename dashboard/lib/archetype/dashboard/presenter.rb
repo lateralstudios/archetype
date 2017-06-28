@@ -8,9 +8,9 @@ module Archetype
       private
 
       def build_navigation
-        navigable = Archetype.controllers.map do |_, c|
+        Archetype.controllers.map do |_, c|
           next unless c.module?(:interface) && c.module?(:resourceful)
-          Navigable.new(c.interface.navigation, c.resource_class)
+          Navigable.new(c.interface.navigation, c.resource_class) if c.interface.navigation
         end.compact
       end
     end

@@ -34,6 +34,7 @@ module Archetype
 
         def build(delegate)
           super
+          return unless name
           Navigable.new(name, path, options)
         end
       end
