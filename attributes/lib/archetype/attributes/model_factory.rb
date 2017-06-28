@@ -12,10 +12,16 @@ module Archetype
       end
       
       def build
-        return builders unless model.table_exists?
+        return builders unless table_exists?
         build_attributes
         build_associations
         builders
+      end
+
+      def table_exists?
+        model.table_exists?
+      rescue ActiveRecord::NoDatabaseError
+        false
       end
 
       def build_attributes
