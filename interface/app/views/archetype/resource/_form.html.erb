@@ -2,14 +2,8 @@
   <%= simple_nested_form_for resourceful.resource.form_object do |f| %>
     <div class="col-md-2">
       <div data-spy="affix" data-offset-top="0" data-offset-bottom="0">
-        <div class="row">
-          <div class="col-md-6">
-            <%= link_to 'Back', resource_class, class: 'btn btn-block btn-default margin-bottom' %>
-          </div>
-          <div class="col-md-6">
-            <%= f.submit 'Save', class: 'btn btn-block btn-primary' %>
-          </div>
-        </div>
+        <%= link_to 'Back', resource_class, class: 'btn btn-block btn-default' %>
+        <%= f.submit 'Save', class: 'btn btn-block btn-primary margin-bottom' %>
 
         <div class="box box-solid">
           <div class="box-header with-border">
