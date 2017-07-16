@@ -23,7 +23,7 @@ module Archetype
       end
 
       def sortable?
-        options[:sortable] || true
+        options[:sortable].nil? ? true : options[:sortable]
       end
 
       def searchable?
