@@ -25,7 +25,7 @@ module Archetype
       end
 
       def values
-        options[:values]
+        options[:values].respond_to?(:call) ? options[:values].call : options[:values]
       end
 
       class Builder < ModelBuilder
