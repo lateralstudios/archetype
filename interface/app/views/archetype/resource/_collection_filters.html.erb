@@ -29,6 +29,7 @@
             <% end %>
             <ul class="dropdown-menu">
               <% scope.values.each do |label, value| %>
+                <% value = label if value.nil? %>
                 <li class="<%= 'active' if params[name] == value %>">
                   <%= link_to({name => value}) do %>
                     <%= label %> (<%= scope.results(resourceful.unfiltered_collection, value).count %>)
