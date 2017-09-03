@@ -1,5 +1,5 @@
 <% if resourceful.searchable? %>
-  <%= form_tag params.merge({page: 1}), method: :get do %>
+  <%= form_tag params.permit!.merge({page: 1}), method: :get do %>
     <div class="input-group margin-bottom">
       <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search for...' %>
       <span class="input-group-btn">
@@ -17,7 +17,7 @@
     <ul class="nav nav-pills nav-stacked">
       <%# <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> All</a></li> %>
       <li class="<%= 'active' unless current_scope %>">
-        <%= link_to params.except(*resourceful.scopes.keys) do %>
+        <%= link_to params.permit!.except(*resourceful.scopes.keys) do %>
           All <span class="pull-right">(<%= resourceful.unfiltered_collection.count %>)</span>
         <% end %>
       </li>
