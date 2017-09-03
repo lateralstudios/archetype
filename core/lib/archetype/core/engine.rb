@@ -8,9 +8,9 @@ module Archetype
         # TODO: Should just load the controllers
         Rails.application.eager_load!
         unless Rails.configuration.cache_classes
-          ActionDispatch::Reloader.to_cleanup do
-            Archetype.reload!
-          end
+          # ActionDispatch::Reloader.to_cleanup do
+          #   Archetype.reload!
+          # end
         end
       end
 
