@@ -13,7 +13,7 @@ module Archetype
       delegate :archetype_name, :archetype_controller, to: :class
       delegate :configuration, to: :class
       helper_method :archetype_user
-      before_filter :authenticate_archetype!
+      before_action :authenticate_archetype!
     end
 
     def archetype_user
